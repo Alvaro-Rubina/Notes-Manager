@@ -1,9 +1,17 @@
 package org.alvarub.rtnotes.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
 @Entity
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Note {
 
     // Attributes
@@ -19,59 +27,5 @@ public class Note {
     @ManyToOne
     @JoinColumn(name = "user_user_id")
     private User user;
-
-    // Constructors
-    public Note() {
-
-    }
-
-    public Note(Long noteID, String title, String content, LocalDate date, User user) {
-        this.noteID = noteID;
-        this.title = title;
-        this.content = content;
-        this.date = date;
-        this.user = user;
-    }
-
-    // Get set
-    public Long getNoteID() {
-        return noteID;
-    }
-
-    public void setNoteID(Long noteID) {
-        this.noteID = noteID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
 }
