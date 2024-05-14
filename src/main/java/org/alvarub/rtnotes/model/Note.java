@@ -25,11 +25,12 @@ public class Note {
 
     }
 
-    public Note(Long noteID, String title, String content, LocalDate date) {
+    public Note(Long noteID, String title, String content, LocalDate date, User user) {
         this.noteID = noteID;
         this.title = title;
         this.content = content;
         this.date = date;
+        this.user = user;
     }
 
     // Get set
