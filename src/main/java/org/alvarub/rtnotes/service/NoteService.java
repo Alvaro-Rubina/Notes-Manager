@@ -4,7 +4,7 @@ import org.alvarub.rtnotes.dao.NoteDAO;
 import org.alvarub.rtnotes.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,6 +15,7 @@ public class NoteService implements INoteService {
 
     @Override
     public void saveNote(Note note) {
+        note.setDate(LocalDate.now());
         noteDAO.save(note);
     }
 
