@@ -26,12 +26,11 @@ public class User {
     public User() {
     }
 
-    public User(Long userID, String username, String password, String email, List<Note> notes) {
+    public User(Long userID, String username, String password, String email) {
         this.userID = userID;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.notes = notes;
     }
 
     // Get set
