@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.alvarub</groupId>
-    <artifactId>RTNotes</artifactId>
+    <artifactId>Collaborative-Notes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>RTNotes</name>
     <description>RTNotes</description>
