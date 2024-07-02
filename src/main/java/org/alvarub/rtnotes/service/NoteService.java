@@ -1,6 +1,7 @@
 package org.alvarub.rtnotes.service;
 
 import org.alvarub.rtnotes.dao.NoteDAO;
+import org.alvarub.rtnotes.exception.UserNotFoundException;
 import org.alvarub.rtnotes.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,13 @@ public class NoteService implements INoteService {
 
     @Override
     public void saveNote(Note note) {
-        note.setDate(LocalDate.now());
-        noteDAO.save(note);
+
+        if (note.getUser() == null){
+            throw new UserNotFoundException("El usuario de la nota no puede ser nulo");
+        }else{
+            note.setDate(LocalDate.now());
+            noteDAO.save(note);
+        }
     }
 
     @Override
