@@ -22,11 +22,8 @@ public class User {
     private Long userID;
     private String username;
     private String password;
-    private String email;
 
     // Associations
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Note> notes = new ArrayList<>();
-
-    // TODO: En un futuro agregar quizás niveles de visualizacion (colaborador, vizualizacion, etc).
 }
