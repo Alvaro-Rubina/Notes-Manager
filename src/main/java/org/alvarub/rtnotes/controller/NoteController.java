@@ -1,8 +1,11 @@
 package org.alvarub.rtnotes.controller;
 
+import org.alvarub.rtnotes.exception.UserNotFoundException;
 import org.alvarub.rtnotes.model.Note;
 import org.alvarub.rtnotes.service.INoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +17,13 @@ public class NoteController {
     private INoteService noteService;
 
     @PostMapping("/notes/new")
-    public String saveNote(@RequestBody Note note) {
-        noteService.saveNote(note);
-        return "Nota añadida!";
+    public ResponseEntity<String> saveNote(@RequestBody Note note) {
+        try {
+            noteService.saveNote(note);
+            return new ResponseEntity<>("Nota añadida!", HttpStatus.CREATED);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/notes/find/{id}")
