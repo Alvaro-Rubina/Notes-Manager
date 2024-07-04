@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 @Entity
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Note {
 
@@ -22,10 +21,26 @@ public class Note {
     private String title;
     private String content;
     private LocalDate creationDate;
+    private int characterCount;
 
     // Associations
     @ManyToOne
     @JoinColumn(name = "user_user_id")
     private User user;
+
+    // Constructor
+    public Note(String title, String content, User user) {
+        this.title = title;
+        setContent(content);
+        this.creationDate = LocalDate.now();
+        this.user = user;
+    }
+
+    // Setter especificado para que se actualice el conteo de carácteres de la nota
+    public void setContent(String content) {
+        this.content = content;
+        this.characterCount = content.length();
+    }
+
 
 }

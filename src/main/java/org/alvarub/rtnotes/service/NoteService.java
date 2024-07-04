@@ -20,11 +20,11 @@ public class NoteService implements INoteService {
             throw new UserNotFoundException("El usuario de la nota no puede ser nulo");
         }
 
-        if (!this.checkNoteLength(note)){
+        if (note.getCharacterCount() > 1000){
+            // Los 1000 carácteres son un límite que agrego para probar la validación, se puede cambiar.
             throw new IllegalArgumentException("La nota no puede tener más de 1000 carácteres");
         }
-
-        note.setCreationDate(LocalDate.now());
+        
         noteDAO.save(note);
     }
 
@@ -53,10 +53,5 @@ public class NoteService implements INoteService {
     public void editNote(Note note) {
         // TODO: Agregar validaciones
         this.saveNote(note);
-    }
-
-    // Metodos privados
-    public boolean checkNoteLength(Note note){
-        return note.getContent().length() <= 1000;
     }
 }
