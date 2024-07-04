@@ -30,7 +30,9 @@ public class NoteService implements INoteService {
 
     @Override
     public Note findNote(int id) {
-        return noteDAO.findById(id).orElse(null);
+        // TODO: Devolver un DTO en lugar de la entidad. Hacer uso de MapStruct.
+        noteDAO.findById(id).orElse(null);
+
     }
 
     @Override
