@@ -24,33 +24,38 @@ public class NoteService implements INoteService {
             throw new IllegalArgumentException("La nota no puede tener más de 1000 carácteres");
         }
 
-        note.setDate(LocalDate.now());
+        note.setCreationDate(LocalDate.now());
         noteDAO.save(note);
     }
 
     @Override
     public Note findNote(int id) {
         // TODO: Devolver un DTO en lugar de la entidad. Hacer uso de MapStruct.
-        noteDAO.findById(id).orElse(null);
+        // TODO: Agregar validaciones
+        return noteDAO.findById(id).orElse(null);
 
     }
 
     @Override
     public List<Note> getNotes() {
+        // TODO: Cambiar el retorno, en lugar de una lista de entidades, devolver una lista de DTOs.
+        // TODO: Agregar validaciones
         return noteDAO.findAll();
     }
 
     @Override
     public void deleteNote(int id) {
+        // TODO: Agregar validaciones
         noteDAO.deleteById(id);
     }
 
     @Override
     public void editNote(Note note) {
+        // TODO: Agregar validaciones
         this.saveNote(note);
     }
 
-    // Se agrega un límite de caracteres a las notas, 1000 como ejemplo en este caso y por ahora.
+    // Metodos privados
     public boolean checkNoteLength(Note note){
         return note.getContent().length() <= 1000;
     }
