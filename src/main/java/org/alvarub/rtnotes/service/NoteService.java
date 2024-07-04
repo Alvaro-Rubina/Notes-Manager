@@ -16,13 +16,16 @@ public class NoteService implements INoteService {
 
     @Override
     public void saveNote(Note note) {
-
         if (note.getUser() == null){
             throw new UserNotFoundException("El usuario de la nota no puede ser nulo");
-        }else{
-            note.setDate(LocalDate.now());
-            noteDAO.save(note);
         }
+
+        if (!this.checkNoteLength(note)){
+            throw new IllegalArgumentException("La nota no puede tener más de 1000 carácteres");
+        }
+
+        note.setDate(LocalDate.now());
+        noteDAO.save(note);
     }
 
     @Override
@@ -43,5 +46,10 @@ public class NoteService implements INoteService {
     @Override
     public void editNote(Note note) {
         this.saveNote(note);
+    }
+
+    // Se agrega un límite de caracteres a las notas, 1000 como ejemplo en este caso y por ahora.
+    public boolean checkNoteLength(Note note){
+        return note.getContent().length() <= 1000;
     }
 }
