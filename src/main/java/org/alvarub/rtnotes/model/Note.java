@@ -21,7 +21,7 @@ public class Note {
     private Long noteID;
     private String title;
     private String content;
-    private LocalDate date;
+    private LocalDate creationDate;
 
     // Associations
     @ManyToOne
