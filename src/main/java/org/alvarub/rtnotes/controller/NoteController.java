@@ -1,5 +1,6 @@
 package org.alvarub.rtnotes.controller;
 
+import org.alvarub.rtnotes.dto.NoteDTO;
 import org.alvarub.rtnotes.exception.UserNotFoundException;
 import org.alvarub.rtnotes.model.Note;
 import org.alvarub.rtnotes.service.INoteService;
@@ -28,13 +29,13 @@ public class NoteController {
 
     @GetMapping("/notes/find/{id}")
     @ResponseBody
-    public Note findNote(@PathVariable int id) {
+    public NoteDTO findNote(@PathVariable int id) {
         return noteService.findNote(id);
     }
 
     @GetMapping("/notes/find-all")
     @ResponseBody
-    public List<Note> findAllNotes() {
+    public List<NoteDTO> findAllNotes() {
         return noteService.getNotes();
     }
 

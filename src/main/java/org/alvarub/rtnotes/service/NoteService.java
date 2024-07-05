@@ -1,12 +1,16 @@
 package org.alvarub.rtnotes.service;
 
 import org.alvarub.rtnotes.dao.NoteDAO;
+import org.alvarub.rtnotes.dto.NoteDTO;
+import org.alvarub.rtnotes.mapper.NoteMapper;
+import org.alvarub.rtnotes.exception.NoteNotFoundException;
 import org.alvarub.rtnotes.exception.UserNotFoundException;
 import org.alvarub.rtnotes.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoteService implements INoteService {
@@ -29,29 +33,44 @@ public class NoteService implements INoteService {
     }
 
     @Override
-    public Note findNote(int id) {
-        // TODO: Devolver un DTO en lugar de la entidad. Hacer uso de MapStruct.
-        // TODO: Agregar validaciones
-        return noteDAO.findById(id).orElse(null);
+    public NoteDTO findNote(int id) {
 
+        Note note;
+        if (noteDAO.findById(id).isPresent()){
+            note = noteDAO.findById(id).get();
+        } else {
+            throw new NoteNotFoundException("No existe la nota con el id: " + id);
+        }
+
+        NoteDTO noteDTO = NoteMapper.INSTANCE.noteToNoteDTO(note);
+        return noteDTO;
     }
 
     @Override
-    public List<Note> getNotes() {
-        // TODO: Cambiar el retorno, en lugar de una lista de entidades, devolver una lista de DTOs.
-        // TODO: Agregar validaciones
-        return noteDAO.findAll();
+    public List<NoteDTO> getNotes() {
+
+        List<Note> notes = noteDAO.findAll();
+
+        if (notes.isEmpty()){
+            throw new NoteNotFoundException("No hay notas en la base de datos");
+        } else {
+            List<NoteDTO> noteDTOs = NoteMapper.INSTANCE.noteListToNoteDTOList(notes);
+            return noteDTOs;
+        }
     }
 
     @Override
     public void deleteNote(int id) {
-        // TODO: Agregar validaciones
-        noteDAO.deleteById(id);
+
+        if (noteDAO.findById(id).isPresent()) {
+            noteDAO.deleteById(id);
+        } else {
+            throw new NoteNotFoundException("No existe la nota con el id: " + id);
+        }
     }
 
     @Override
     public void editNote(Note note) {
-        // TODO: Agregar validaciones
-        this.saveNote(note);
+        noteDAO.save(note);
     }
 }
