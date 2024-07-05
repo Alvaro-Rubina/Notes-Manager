@@ -19,7 +19,7 @@ public class Note {
     private Long noteID;
     private String title;
     private String content;
-    private LocalDate creationDate;
+    private LocalDate creationDate = LocalDate.now();
     private int characterCount;
 
     // Associations
@@ -31,7 +31,6 @@ public class Note {
     public Note(String title, String content, User user) {
         this.title = title;
         setContent(content);
-        this.creationDate = LocalDate.now();
         this.user = user;
     }
 
@@ -40,6 +39,5 @@ public class Note {
         this.content = content;
         this.characterCount = content.length();
     }
-
 
 }
