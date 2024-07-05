@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping("/users/find-all")
     @ResponseBody
-    public List<UserDTO> getUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getUsers();
     }
 

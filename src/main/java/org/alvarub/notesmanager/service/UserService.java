@@ -36,7 +36,7 @@ public class UserService implements IUserService{
         if (userDAO.findById(id).isPresent()){
             user = userDAO.findById(id).get();
         } else {
-            throw new IllegalArgumentException("No existe el usuario con el id: " + id);
+            throw new UserNotFoundException("No existe el usuario con el id: " + id);
         }
 
         UserDTO userDTO = userMapper.userToUserDTO(user);
