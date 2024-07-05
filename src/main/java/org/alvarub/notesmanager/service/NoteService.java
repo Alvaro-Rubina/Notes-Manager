@@ -17,6 +17,9 @@ public class NoteService implements INoteService {
     @Autowired
     NoteDAO noteDAO;
 
+    @Autowired
+    NoteMapper noteMapper;
+
     @Override
     public void saveNote(Note note) {
         if (note.getUser() == null){
@@ -45,7 +48,7 @@ public class NoteService implements INoteService {
             throw new NoteNotFoundException("No existe la nota con el id: " + id);
         }
 
-        NoteDTO noteDTO = NoteMapper.INSTANCE.noteToNoteDTO(note);
+        NoteDTO noteDTO = noteMapper.noteToNoteDTO(note);
         return noteDTO;
     }
 
@@ -57,7 +60,7 @@ public class NoteService implements INoteService {
         if (notes.isEmpty()){
             throw new NoteNotFoundException("No hay notas en la base de datos");
         } else {
-            List<NoteDTO> noteDTOs = NoteMapper.INSTANCE.noteListToNoteDTOList(notes);
+            List<NoteDTO> noteDTOs = noteMapper.noteListToNoteDTOList(notes);
             return noteDTOs;
         }
     }

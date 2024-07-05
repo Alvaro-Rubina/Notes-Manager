@@ -11,8 +11,6 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = NoteMapper.class)
 public interface UserMapper {
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
     // Mapeos
     @Mapping(source = "notes", target = "notes")
     UserDTO userToUserDTO(User user);

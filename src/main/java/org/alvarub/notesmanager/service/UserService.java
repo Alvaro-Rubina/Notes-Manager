@@ -16,6 +16,9 @@ public class UserService implements IUserService{
     @Autowired
     UserDAO userDAO;
 
+    @Autowired
+    UserMapper userMapper;
+
     @Override
     public void saveUser(User user) {
 
@@ -36,7 +39,7 @@ public class UserService implements IUserService{
             throw new IllegalArgumentException("No existe el usuario con el id: " + id);
         }
 
-        UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
+        UserDTO userDTO = userMapper.userToUserDTO(user);
         return userDTO;
     }
 
@@ -48,7 +51,7 @@ public class UserService implements IUserService{
         if (users.isEmpty()) {
             throw new IllegalArgumentException("No hay usuarios en la base de datos");
         } else {
-            List<UserDTO> userDTOS = UserMapper.INSTANCE.userListToUserDTOList(users);
+            List<UserDTO> userDTOS = userMapper.userListToUserDTOList(users);
             return userDTOS;
         }
     }
