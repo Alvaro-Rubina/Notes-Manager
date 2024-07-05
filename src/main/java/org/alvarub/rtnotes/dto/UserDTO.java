@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class UserDTO {
@@ -13,4 +15,5 @@ public class UserDTO {
     private String userName;
     private String name;
     private String lastName;
+    private List<NoteDTO> notes;
 }
