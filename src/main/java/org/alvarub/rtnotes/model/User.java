@@ -24,7 +24,6 @@ public class User {
     private String userName;
     private String name;
     private String lastName;
-    private LocalDate accountCreationDate;
 
     // TODO: Estos atributos se agregarán cuando se implemente la autenticación.
     /*private String email;
