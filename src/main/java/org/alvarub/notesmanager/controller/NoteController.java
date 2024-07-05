@@ -1,9 +1,9 @@
-package org.alvarub.rtnotes.controller;
+package org.alvarub.notesmanager.controller;
 
-import org.alvarub.rtnotes.dto.NoteDTO;
-import org.alvarub.rtnotes.exception.UserNotFoundException;
-import org.alvarub.rtnotes.model.Note;
-import org.alvarub.rtnotes.service.INoteService;
+import org.alvarub.notesmanager.dto.NoteDTO;
+import org.alvarub.notesmanager.exception.UserNotFoundException;
+import org.alvarub.notesmanager.model.Note;
+import org.alvarub.notesmanager.service.INoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

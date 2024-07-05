@@ -1,16 +1,15 @@
-package org.alvarub.rtnotes.service;
+package org.alvarub.notesmanager.service;
 
-import org.alvarub.rtnotes.dao.NoteDAO;
-import org.alvarub.rtnotes.dto.NoteDTO;
-import org.alvarub.rtnotes.mapper.NoteMapper;
-import org.alvarub.rtnotes.exception.NoteNotFoundException;
-import org.alvarub.rtnotes.exception.UserNotFoundException;
-import org.alvarub.rtnotes.model.Note;
+import org.alvarub.notesmanager.dao.NoteDAO;
+import org.alvarub.notesmanager.dto.NoteDTO;
+import org.alvarub.notesmanager.mapper.NoteMapper;
+import org.alvarub.notesmanager.exception.NoteNotFoundException;
+import org.alvarub.notesmanager.exception.UserNotFoundException;
+import org.alvarub.notesmanager.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class NoteService implements INoteService {

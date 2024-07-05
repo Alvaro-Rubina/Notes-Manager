@@ -1,7 +1,7 @@
-package org.alvarub.rtnotes.service;
+package org.alvarub.notesmanager.service;
 
-import org.alvarub.rtnotes.dto.NoteDTO;
-import org.alvarub.rtnotes.model.Note;
+import org.alvarub.notesmanager.dto.NoteDTO;
+import org.alvarub.notesmanager.model.Note;
 import java.util.List;
 
 public interface INoteService {

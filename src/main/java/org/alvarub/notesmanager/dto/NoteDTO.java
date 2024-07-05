@@ -1,4 +1,4 @@
-package org.alvarub.rtnotes.dto;
+package org.alvarub.notesmanager.dto;
 
 import lombok.*;
 

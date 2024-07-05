@@ -1,4 +1,4 @@
-package org.alvarub.rtnotes;
+package org.alvarub.notesmanager;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

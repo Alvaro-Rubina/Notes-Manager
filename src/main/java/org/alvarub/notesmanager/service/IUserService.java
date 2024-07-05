@@ -1,7 +1,7 @@
-package org.alvarub.rtnotes.service;
+package org.alvarub.notesmanager.service;
 
-import org.alvarub.rtnotes.dto.UserDTO;
-import org.alvarub.rtnotes.model.User;
+import org.alvarub.notesmanager.dto.UserDTO;
+import org.alvarub.notesmanager.model.User;
 
 import java.util.List;
 

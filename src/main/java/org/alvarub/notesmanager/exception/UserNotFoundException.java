@@ -1,4 +1,4 @@
-package org.alvarub.rtnotes.exception;
+package org.alvarub.notesmanager.exception;
 
 public class UserNotFoundException extends RuntimeException{
 

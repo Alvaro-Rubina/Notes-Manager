@@ -1,7 +1,7 @@
-package org.alvarub.rtnotes.mapper;
+package org.alvarub.notesmanager.mapper;
 
-import org.alvarub.rtnotes.dto.UserDTO;
-import org.alvarub.rtnotes.model.User;
+import org.alvarub.notesmanager.dto.UserDTO;
+import org.alvarub.notesmanager.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

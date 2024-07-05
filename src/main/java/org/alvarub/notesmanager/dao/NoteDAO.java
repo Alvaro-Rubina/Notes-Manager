@@ -1,6 +1,6 @@
-package org.alvarub.rtnotes.dao;
+package org.alvarub.notesmanager.dao;
 
-import org.alvarub.rtnotes.model.Note;
+import org.alvarub.notesmanager.model.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

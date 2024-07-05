@@ -1,8 +1,8 @@
-package org.alvarub.rtnotes.controller;
+package org.alvarub.notesmanager.controller;
 
-import org.alvarub.rtnotes.dto.UserDTO;
-import org.alvarub.rtnotes.model.User;
-import org.alvarub.rtnotes.service.IUserService;
+import org.alvarub.notesmanager.dto.UserDTO;
+import org.alvarub.notesmanager.model.User;
+import org.alvarub.notesmanager.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

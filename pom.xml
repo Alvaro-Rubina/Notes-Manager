@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.alvarub</groupId>
-    <artifactId>Collaborative-Notes</artifactId>
+    <artifactId>Notes-Manager</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>RTNotes</name>
-    <description>RTNotes</description>
+    <name>Notes-Manager</name>
+    <description>Notes-Manager</description>
     <properties>
         <java.version>21</java.version>
     </properties>
