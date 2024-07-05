@@ -14,7 +14,7 @@
     <name>Notes-Manager</name>
     <description>Notes-Manager</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <org.mapstruct.version>1.6.0.Beta2</org.mapstruct.version>
         <org.projectlombok.version>1.18.24</org.projectlombok.version>
         <org.lombok-mapstruct-binding>0.2.0</org.lombok-mapstruct-binding>
@@ -78,8 +78,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>21</source> <!-- depending on your project -->
-                    <target>21</target> <!-- depending on your project -->
+                    <source>17</source> <!-- depending on your project -->
+                    <target>17</target> <!-- depending on your project -->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
