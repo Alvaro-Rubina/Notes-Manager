@@ -1,5 +1,6 @@
 package org.alvarub.rtnotes.controller;
 
+import org.alvarub.rtnotes.dto.UserDTO;
 import org.alvarub.rtnotes.model.User;
 import org.alvarub.rtnotes.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,13 @@ public class UserController {
 
     @GetMapping("/users/find/{id}")
     @ResponseBody
-    public User findUser(@PathVariable int id) {
+    public UserDTO findUser(@PathVariable int id) {
         return userService.findUser(id);
     }
 
     @GetMapping("/users/find-all")
     @ResponseBody
-    public List<User> getUsers() {
+    public List<UserDTO> getUsers() {
         return userService.getUsers();
     }
 
