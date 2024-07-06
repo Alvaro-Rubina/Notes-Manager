@@ -21,11 +21,6 @@ public class UserService implements IUserService{
 
     @Override
     public void saveUser(User user) {
-
-        if (user.getUserName().isEmpty() || user.getUserName().isEmpty() || user.getLastName().isEmpty()){
-            throw new IllegalArgumentException("El usuario debe tener nombre de usuario, nombre y apellido");
-        }
-
         userDAO.save(user);
     }
 

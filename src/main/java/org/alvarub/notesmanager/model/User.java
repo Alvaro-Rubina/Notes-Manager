@@ -20,8 +20,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_gen")
     @SequenceGenerator(name = "user_gen", sequenceName = "user_seq", allocationSize = 1)
     private Long userID;
+    @Column(nullable = false)
     private String userName;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String lastName;
 
     // TODO: Estos atributos se agregarán cuando se implemente la autenticación.
