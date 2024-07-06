@@ -22,19 +22,6 @@ public class NoteService implements INoteService {
 
     @Override
     public void saveNote(Note note) {
-        if (note.getUser() == null){
-            throw new UserNotFoundException("El usuario de la nota no puede ser nulo");
-        }
-        
-        if (note.getTitle().isEmpty() || note.getContent().isEmpty()){
-            throw new IllegalArgumentException("La nota debe tener título y contenido");
-        }
-
-        if (note.getCharacterCount() > 1000){
-            // Los 1000 carácteres son un límite que agrego para probar la validación, se puede cambiar.
-            throw new IllegalArgumentException("La nota no puede tener más de 1000 carácteres");
-        }
-        
         noteDAO.save(note);
     }
 
