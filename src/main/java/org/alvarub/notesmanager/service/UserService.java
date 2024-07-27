@@ -21,6 +21,14 @@ public class UserService implements IUserService{
 
     @Override
     public void saveUser(User user) {
+
+        List<UserDTO> users = this.getUsers();
+        for (UserDTO u: users){
+            if (u.getUserName().equals(user.getUserName())){
+                throw new IllegalArgumentException("El nombre de usuario no está disponible");
+            }
+        }
+
         userDAO.save(user);
     }
 
