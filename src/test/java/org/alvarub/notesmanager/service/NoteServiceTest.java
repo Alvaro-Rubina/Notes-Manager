@@ -2,10 +2,12 @@ package org.alvarub.notesmanager.service;
 
 import org.alvarub.notesmanager.dao.NoteDAO;
 import org.alvarub.notesmanager.dto.NoteDTO;
+import org.alvarub.notesmanager.exception.NoteNotFoundException;
 import org.alvarub.notesmanager.mapper.NoteMapper;
 import org.alvarub.notesmanager.model.Note;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.InjectMocks;
@@ -42,6 +44,7 @@ class NoteServiceTest {
     }
 
     @Test
+    @DisplayName("Find a note by its id")
     void findNote() {
         Note note = new Note();
         note.setNoteID(1L);
@@ -61,7 +64,15 @@ class NoteServiceTest {
     }
 
     @Test
+    @DisplayName("Find a note that does not exist")
+    void findNoteNotFound(){
+        when(noteDAO.findById(1)).thenReturn(Optional.empty());
+        assertThrows(NoteNotFoundException.class, () -> noteService.findNote(1));
+    }
+
+    @Test
     void getNotes() {
+
     }
 
     @Test
