@@ -42,7 +42,6 @@ class NoteServiceTest {
     }
 
     @Test
-    @DisplayName("Save a note")
     void saveNote() {
         note1 = new Note();
         noteService.saveNote(note1);
@@ -50,7 +49,6 @@ class NoteServiceTest {
     }
 
     @Test
-    @DisplayName("Find a note by its id")
     void findNote() {
         note1 = new Note();
         note1.setNoteID(1L);
@@ -70,14 +68,13 @@ class NoteServiceTest {
     }
 
     @Test
-    @DisplayName("Find a note that does not exist")
+    @DisplayName("findNote() - Note not found")
     void findNoteNotFound(){
         when(noteDAO.findById(1)).thenReturn(Optional.empty());
         assertThrows(NoteNotFoundException.class, () -> noteService.findNote(1));
     }
 
     @Test
-    @DisplayName("Get all notes")
     void getNotes() {
         note1 = new Note();
         note2 = new Note();
@@ -96,14 +93,13 @@ class NoteServiceTest {
     }
 
     @Test
-    @DisplayName("Get all notes when there are no notes")
+    @DisplayName("getNotes() - There are no notes")
     void getNotesNotFound(){
         when(noteDAO.findAll()).thenReturn(List.of());
         assertThrows(NoteNotFoundException.class, () -> noteService.getNotes());
     }
 
     @Test
-    @DisplayName("Delete a note by its id")
     void deleteNote() {
         note1 = new Note();
         when(noteDAO.findById(1)).thenReturn(Optional.of(note1));
@@ -116,14 +112,13 @@ class NoteServiceTest {
     }
 
     @Test
-    @DisplayName("Delete a note that does not exist")
+    @DisplayName("deleteNote() - Note not found")
     void deleteNoteNotFound(){
         when(noteDAO.findById(1)).thenReturn(Optional.empty());
         assertThrows(NoteNotFoundException.class, () -> noteService.deleteNote(1));
     }
 
     @Test
-    @DisplayName("Edit a note")
     void editNote() {
         note1 = new Note();
         noteService.editNote(note1);
