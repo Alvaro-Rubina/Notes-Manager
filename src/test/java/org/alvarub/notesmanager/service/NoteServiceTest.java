@@ -44,9 +44,9 @@ class NoteServiceTest {
     @Test
     @DisplayName("Save a note")
     void saveNote() {
-        Note note = new Note();
-        noteService.saveNote(note);
-        verify(noteDAO, times(1)).save(note);
+        note1 = new Note();
+        noteService.saveNote(note1);
+        verify(noteDAO, times(1)).save(note1);
     }
 
     @Test
