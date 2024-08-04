@@ -26,7 +26,10 @@ public class NoteController {
 
     @Operation(summary = "Guardar una nueva nota")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Nota creada", content = @Content),
+            @ApiResponse(responseCode = "201", description = "Nota creada", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Note.class))
+            }),
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
@@ -90,7 +93,10 @@ public class NoteController {
 
     @Operation(summary = "Actualizar una nota")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Nota actualizada", content = @Content),
+            @ApiResponse(responseCode = "201", description = "Nota actualizada", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Note.class))
+            }),
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Nota o usuario no encontrado", content = @Content)
     })
