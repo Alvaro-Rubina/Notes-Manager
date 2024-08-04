@@ -73,10 +73,19 @@ public class NoteController {
     }
 
     @Operation(summary = "Eliminar una nota")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Nota eliminada", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Nota no encontrada", content = @Content)
+    })
     @DeleteMapping("/notes/delete/{id}")
-    public String deleteNote(@PathVariable int id) {
-        noteService.deleteNote(id);
-        return "Nota eliminada con éxito";
+    public ResponseEntity<String> deleteNote(@Parameter(description = "ID de la nota", example = "1") @PathVariable int id) {
+        try {
+            noteService.deleteNote(id);
+            return new ResponseEntity<>("Nota eliminada", HttpStatus.OK);
+        } catch (NoteNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @Operation(summary = "Actualizar una nota")
