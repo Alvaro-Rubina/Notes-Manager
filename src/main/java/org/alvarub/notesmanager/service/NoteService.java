@@ -1,6 +1,7 @@
 package org.alvarub.notesmanager.service;
 
 import org.alvarub.notesmanager.dao.NoteDAO;
+import org.alvarub.notesmanager.dao.UserDAO;
 import org.alvarub.notesmanager.dto.NoteDTO;
 import org.alvarub.notesmanager.mapper.NoteMapper;
 import org.alvarub.notesmanager.exception.NoteNotFoundException;
@@ -18,11 +19,28 @@ public class NoteService implements INoteService {
     NoteDAO noteDAO;
 
     @Autowired
+    UserDAO userDAO;
+
+    @Autowired
     NoteMapper noteMapper;
 
     @Override
     public void saveNote(Note note) {
-        noteDAO.save(note);
+        if (note.getTitle() == null || note.getTitle().isEmpty()){
+            throw new IllegalArgumentException("El título de la nota es obligatorio");
+
+        } else if (note.getContent() == null || note.getContent().isEmpty()){
+            throw new IllegalArgumentException("El contenido de la nota es obligatorio");
+
+        } else if (note.getUser() == null){
+            throw new IllegalArgumentException("El usuario no puede ser nulo");
+
+        } else if (!userDAO.existsById(Math.toIntExact(note.getUser().getUserID()))){
+            throw new UserNotFoundException("No existe el usuario con el id: " + note.getUser().getUserID());
+
+        } else {
+            noteDAO.save(note);
+        }
     }
 
     @Override
