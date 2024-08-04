@@ -24,7 +24,8 @@ public class NoteController {
     @Operation(summary = "Guardar una nueva nota")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Nota añadida", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Usuario no existente", content = @Content)
     })
     @PostMapping("/notes/new")
     public ResponseEntity<String> saveNote(@RequestBody Note note) {
@@ -32,9 +33,11 @@ public class NoteController {
             noteService.saveNote(note);
             return new ResponseEntity<>("Nota añadida!", HttpStatus.CREATED);
 
-        } catch (IllegalArgumentException | UserNotFoundException e){
+        } catch (IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 
+        } catch (UserNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
