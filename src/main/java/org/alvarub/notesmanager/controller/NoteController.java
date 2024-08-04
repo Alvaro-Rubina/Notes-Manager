@@ -27,14 +27,14 @@ public class NoteController {
     @Operation(summary = "Guardar una nueva nota")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Nota creada", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
     @PostMapping("/notes/new")
     public ResponseEntity<String> saveNote(@RequestBody Note note) {
         try {
             noteService.saveNote(note);
-            return new ResponseEntity<>("Nota añadida!", HttpStatus.CREATED);
+            return new ResponseEntity<>("Nota creada", HttpStatus.CREATED);
 
         } catch (IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -65,9 +65,10 @@ public class NoteController {
     }
 
     @Operation(summary = "Obtener todas las notas")
+
     @GetMapping("/notes/find-all")
     @ResponseBody
-    public List<NoteDTO> findAllNotes() {
+    public List<NoteDTO> getAllNotes() {
         return noteService.getNotes();
     }
 
@@ -79,9 +80,23 @@ public class NoteController {
     }
 
     @Operation(summary = "Actualizar una nota")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Nota actualizada", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Nota o usuario no encontrado", content = @Content)
+    })
     @PutMapping("/notes/edit")
-    public String updateNote(@RequestBody Note note) {
-        noteService.editNote(note);
-        return "Nota actualizada!";
+    public ResponseEntity<String> updateNote(@RequestBody Note note) {
+
+        try {
+            noteService.editNote(note);
+            return new ResponseEntity<>("Nota actualizada", HttpStatus.CREATED);
+
+        } catch (IllegalArgumentException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+        } catch (NoteNotFoundException | UserNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 }
