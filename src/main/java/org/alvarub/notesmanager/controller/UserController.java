@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.alvarub.notesmanager.dto.UserDTO;
+import org.alvarub.notesmanager.exception.UserNotFoundException;
 import org.alvarub.notesmanager.model.User;
 import org.alvarub.notesmanager.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,22 @@ public class UserController {
     }
 
     @Operation(summary = "Buscar un usuario a través de su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado", content = {
+                    @Content(mediaType = "application/json",
+                        schema = @Schema(implementation = UserDTO.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
+    })
     @GetMapping("/users/find/{id}")
     @ResponseBody
-    public UserDTO findUser(@PathVariable int id) {
-        return userService.findUser(id);
+    public ResponseEntity<?> findUser(@PathVariable int id) {
+        try {
+            return new ResponseEntity<>(userService.findUser(id), HttpStatus.OK);
+
+        } catch (UserNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @Operation(summary = "Obtener todos los usuarios")
