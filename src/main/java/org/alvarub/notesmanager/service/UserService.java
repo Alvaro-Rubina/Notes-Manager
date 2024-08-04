@@ -2,6 +2,7 @@ package org.alvarub.notesmanager.service;
 
 import org.alvarub.notesmanager.dao.UserDAO;
 import org.alvarub.notesmanager.dto.UserDTO;
+import org.alvarub.notesmanager.exception.NoteNotFoundException;
 import org.alvarub.notesmanager.exception.UserNotFoundException;
 import org.alvarub.notesmanager.mapper.UserMapper;
 import org.alvarub.notesmanager.model.User;
@@ -69,6 +70,24 @@ public class UserService implements IUserService{
 
     @Override
     public void editUser(User user) {
-        this.saveUser(user);
+
+        if (user.getUserID() == null){
+            throw new IllegalArgumentException("El ID del usuario es obligatorio");
+        }
+
+        User existingUser = userDAO.findById(Math.toIntExact(user.getUserID())).orElseThrow(() ->
+                new UserNotFoundException("No existe el usuario con el id: " + user.getUserID()));
+
+        if (user.getUserName() != null){
+            existingUser.setUserName(user.getUserName());
+        }
+        if (user.getName() != null){
+            existingUser.setName(user.getName());
+        }
+        if (user.getLastName() != null){
+            existingUser.setLastName(user.getLastName());
+        }
+
+        userDAO.save(existingUser);
     }
 }
