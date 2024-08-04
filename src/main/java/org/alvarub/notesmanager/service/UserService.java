@@ -53,13 +53,8 @@ public class UserService implements IUserService{
     public List<UserDTO> getUsers() {
 
         List<User> users = userDAO.findAll();
-
-        if (users.isEmpty()) {
-            throw new IllegalArgumentException("No hay usuarios en la base de datos");
-        } else {
-            List<UserDTO> userDTOS = userMapper.userListToUserDTOList(users);
-            return userDTOS;
-        }
+        List<UserDTO> userDTOs= userMapper.userListToUserDTOList(users);
+        return userDTOs;
     }
 
     @Override
