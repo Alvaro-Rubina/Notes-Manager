@@ -1,10 +1,16 @@
 package org.alvarub.notesmanager.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.alvarub.notesmanager.dto.UserDTO;
 import org.alvarub.notesmanager.model.User;
 import org.alvarub.notesmanager.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,10 +22,21 @@ public class UserController {
     private IUserService userService;
 
     @Operation(summary = "Guardar un nuevo usuario")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "201", description = "Usuario registrado", content = {
+                    @Content(mediaType = "application/json",
+                            schema =  @Schema(implementation = User.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content)
+    })
     @PostMapping("/users/new")
-    public String saveUser(@RequestBody User user) {
-        userService.saveUser(user);
-        return "Usuario registrado!";
+    public ResponseEntity<String> saveUser(@RequestBody User user) {
+        try {
+            userService.saveUser(user);
+            return new ResponseEntity<>("Usuario registrado", HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Operation(summary = "Buscar un usuario a través de su ID")
