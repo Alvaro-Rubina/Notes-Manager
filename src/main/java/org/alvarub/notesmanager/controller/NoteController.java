@@ -1,6 +1,7 @@
 package org.alvarub.notesmanager.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.alvarub.notesmanager.dto.NoteDTO;
@@ -21,13 +22,19 @@ public class NoteController {
     private INoteService noteService;
 
     @Operation(summary = "Guardar una nueva nota")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Nota añadida", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content)
+    })
     @PostMapping("/notes/new")
     public ResponseEntity<String> saveNote(@RequestBody Note note) {
         try {
             noteService.saveNote(note);
             return new ResponseEntity<>("Nota añadida!", HttpStatus.CREATED);
-        } catch (UserNotFoundException e) {
+
+        } catch (IllegalArgumentException | UserNotFoundException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
         }
     }
 
