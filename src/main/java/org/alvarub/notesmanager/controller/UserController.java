@@ -67,10 +67,18 @@ public class UserController {
     }
 
     @Operation(summary = "Eliminar un usuario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario eliminado", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
+    })
     @DeleteMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable int id) {
-        userService.deleteUser(id);
-        return "Usuario eliminado con éxito.";
+    public ResponseEntity<String> deleteUser(@PathVariable int id) {
+        try {
+            userService.deleteUser(id);
+            return new ResponseEntity<>("Usuario eliminado", HttpStatus.OK);
+        } catch (UserNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @Operation(summary = "Actualizar un usuario")
