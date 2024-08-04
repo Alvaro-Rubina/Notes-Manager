@@ -1,10 +1,13 @@
 package org.alvarub.notesmanager.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.alvarub.notesmanager.dto.NoteDTO;
+import org.alvarub.notesmanager.exception.NoteNotFoundException;
 import org.alvarub.notesmanager.exception.UserNotFoundException;
 import org.alvarub.notesmanager.model.Note;
 import org.alvarub.notesmanager.service.INoteService;
@@ -23,9 +26,9 @@ public class NoteController {
 
     @Operation(summary = "Guardar una nueva nota")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Nota añadida", content = @Content),
+            @ApiResponse(responseCode = "201", description = "Nota creada", content = @Content),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Usuario no existente", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
     @PostMapping("/notes/new")
     public ResponseEntity<String> saveNote(@RequestBody Note note) {
@@ -42,10 +45,23 @@ public class NoteController {
     }
 
     @Operation(summary = "Buscar una nota a través de su ID")
+    @ApiResponses(value = {
+            @ApiResponse (responseCode = "200", description = "Nota encontrada",
+                content = {
+                    @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = NoteDTO.class))
+                }),
+            @ApiResponse(responseCode = "404", description = "Nota no encontrada", content = @Content)
+    })
     @GetMapping("/notes/find/{id}")
     @ResponseBody
-    public NoteDTO findNote(@PathVariable int id) {
-        return noteService.findNote(id);
+    public ResponseEntity<?> findNote(@Parameter(description = "ID de la nota", example = "1") @PathVariable int id) {
+        try {
+            return new ResponseEntity<>(noteService.findNote(id), HttpStatus.OK);
+
+        } catch (NoteNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @Operation(summary = "Obtener todas las notas")
