@@ -15,9 +15,10 @@
     <description>Notes-Manager</description>
     <properties>
         <java.version>17</java.version>
-        <org.mapstruct.version>1.6.0.Beta2</org.mapstruct.version>
-        <org.projectlombok.version>1.18.24</org.projectlombok.version>
-        <org.lombok-mapstruct-binding>0.2.0</org.lombok-mapstruct-binding>
+        <org.mapstruct.version>1.6.0.RC1</org.mapstruct.version>
+        <org.projectlombok.version>1.18.30</org.projectlombok.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
@@ -91,8 +92,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>17</source> <!-- depending on your project -->
-                    <target>17</target> <!-- depending on your project -->
+                    <source>1.8</source> <!-- depending on your project -->
+                    <target>1.8</target> <!-- depending on your project -->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
@@ -107,7 +108,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>${org.lombok-mapstruct-binding}</version>
+                            <version>0.2.0</version>
                         </path>
                         <!-- other annotation processors -->
                     </annotationProcessorPaths>
