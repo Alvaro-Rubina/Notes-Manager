@@ -1,6 +1,7 @@
 package org.alvarub.notesmanager.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -50,7 +51,7 @@ public class UserController {
     })
     @GetMapping("/users/find/{id}")
     @ResponseBody
-    public ResponseEntity<?> findUser(@PathVariable int id) {
+    public ResponseEntity<?> findUser(@Parameter(description = "ID del usuario", example = "1") @PathVariable int id) {
         try {
             return new ResponseEntity<>(userService.findUser(id), HttpStatus.OK);
 
@@ -72,7 +73,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
     @DeleteMapping("/users/delete/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable int id) {
+    public ResponseEntity<String> deleteUser(@Parameter(description = "ID del usuario", example = "1") @PathVariable int id) {
         try {
             userService.deleteUser(id);
             return new ResponseEntity<>("Usuario eliminado", HttpStatus.OK);
@@ -82,9 +83,25 @@ public class UserController {
     }
 
     @Operation(summary = "Actualizar un usuario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario actualizado", content = {
+                    @Content(mediaType = "application/json",
+                        schema = @Schema(implementation = User.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
+    })
     @PutMapping("/users/edit")
-    public String editUser(@RequestBody User user) {
-        userService.editUser(user);
-        return "Los datos del usuario se han actualizado.";
+    public ResponseEntity<String> editUser(@RequestBody User user) {
+        try {
+            userService.editUser(user);
+            return new ResponseEntity<>("Usuario actualizado", HttpStatus.OK);
+
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+        } catch (UserNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 }
