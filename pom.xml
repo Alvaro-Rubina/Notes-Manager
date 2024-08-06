@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.alvarub</groupId>
-    <artifactId>notes-Manager</artifactId>
+    <artifactId>notes-manager</artifactId>
     <version>0.0.1</version>
     <name>Notes-Manager</name>
     <description>Notes-Manager</description>
