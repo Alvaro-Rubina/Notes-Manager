@@ -60,31 +60,22 @@ class NoteServiceTest {
     }
 
     @Test
-    void saveNoteWithoutTitle() {
+    void saveNoteEmptyFields() {
+        // 4 casos de prueba (Sin título, sin contenido, sin usuario, y usuario no existente)
         user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
-        note1 = new Note(null, "Blablabla", user1);
+        note1 = new Note("", "Blablabla", user1);
+        note2 = new Note("A silly note", "", user1);
 
-        assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(note1));
-    }
-
-    @Test
-    void saveNoteWithoutContent() {
-        user1 = new User(1L, "panaFu", "Fugo", "Pannacotta", null);
-        note1 = new Note("A silly note", "", user1);
-        note2 = new Note();
-        note2.setNoteID(1L);
-        note2.setTitle("An alternative silly note");
-        note2.setUser(user1);
-
+        when(userDAO.existsById(1)).thenReturn(true);
         assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(note1));
         assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(note2));
-    }
 
-    @Test
-    void saveNoteWithoutUser() {
         note1 = new Note("A silly note", "Blablabla", null);
+        note2 = new Note("A silly note", "Blablabla", user1);
 
+        when(userDAO.existsById(1)).thenReturn(false);
         assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(note1));
+        assertThrows(UserNotFoundException.class, () -> noteService.saveNote(note2));
     }
 
     @Test
