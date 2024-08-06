@@ -60,6 +60,7 @@ class NoteServiceTest {
     }
 
     @Test
+    @DisplayName("saveNote() - Empty or null fields")
     void saveNoteEmptyFields() {
         // 4 casos de prueba (Sin título, sin contenido, sin usuario, y usuario no existente)
         user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
@@ -160,6 +161,7 @@ class NoteServiceTest {
     }
 
     @Test
+    @DisplayName("editNote() - Note whitout ID")
     void editNoteWithoutId() {
         user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
         note1 = new Note("A NEW (!!!) silly note", "Blablabla (v2)", user1);
@@ -171,6 +173,7 @@ class NoteServiceTest {
     }
 
     @Test
+    @DisplayName("editNote() - User not found")
     void editNoteWithUserNotFound() {
         user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
         note1 = new Note("A NEW (!!!) silly note", "Blablabla (v2)", user1);
@@ -185,6 +188,7 @@ class NoteServiceTest {
     }
 
     @Test
+    @DisplayName("editNote() - Note not found")
     void editNoteNotFound() {
         user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
         note1 = new Note("A NEW (!!!) silly note", "Blablabla (v2)", user1);
