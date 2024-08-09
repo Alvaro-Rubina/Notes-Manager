@@ -1,10 +1,10 @@
 package org.alvarub.notesmanager.service;
 
 import org.alvarub.notesmanager.dao.UserDAO;
+import org.alvarub.notesmanager.dto.NewUserDTO;
 import org.alvarub.notesmanager.dto.UserDTO;
 import org.alvarub.notesmanager.exception.UserNotFoundException;
 import org.alvarub.notesmanager.mapper.UserMapper;
-import org.alvarub.notesmanager.model.Note;
 import org.alvarub.notesmanager.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,8 +34,10 @@ class UserServiceTest {
     // Attributes
     private User user1;
     private User user2;
-    private User user3;
-    private User existingUser1;
+
+    private NewUserDTO newUser1;
+    private NewUserDTO newUser2;
+    private NewUserDTO newUser3;
 
     @BeforeEach
     void setUp() {
@@ -44,9 +46,12 @@ class UserServiceTest {
 
     @Test
     void saveUser() {
+        newUser1 = new NewUserDTO("pucciE" ,"Enrico", "Pucci");
         user1 = new User(1L, "pucciE" ,"Enrico", "Pucci", null);
 
-        userService.saveUser(user1);
+        when(userMapper.newUserDTOToUser(newUser1)).thenReturn(user1);
+
+        userService.saveUser(newUser1);
         verify(userDAO, times(1)).save(user1);
     }
 
@@ -54,13 +59,13 @@ class UserServiceTest {
     @DisplayName("saveUser() - Empty fields")
     void saveUserEmptyFields() {
         // 3 casos de prueba (sin username, sin nombre y sin apellido)
-        user1 = new User(1L, "" ,"Enrico", "Pucci", null);
-        user2 = new User(1L, "pucciE" ,"", "Pucci", null);
-        user3 = new User(1L, "pucciE" ,"Enrico", "", null);
+        newUser1 = new NewUserDTO("" ,"Enrico", "Pucci");
+        newUser2 = new NewUserDTO("pucciE" ,"", "Pucci");
+        newUser3 = new NewUserDTO("pucciE" ,"Enrico", "");
 
-        assertThrows(IllegalArgumentException.class, () -> userService.saveUser(user1));
-        assertThrows(IllegalArgumentException.class, () -> userService.saveUser(user2));
-        assertThrows(IllegalArgumentException.class, () -> userService.saveUser(user3));
+        assertThrows(IllegalArgumentException.class, () -> userService.saveUser(newUser1));
+        assertThrows(IllegalArgumentException.class, () -> userService.saveUser(newUser2));
+        assertThrows(IllegalArgumentException.class, () -> userService.saveUser(newUser3));
     }
 
     @Test
@@ -126,29 +131,23 @@ class UserServiceTest {
 
     @Test
     void editUser() {
-        user1 = new User(1L, "madeInHeaven" ,"Enrico", "Pucci", null);
-        existingUser1 = new User(1L, "pucciE" ,"Enrico", "Pucci", null);
+        newUser1 = new NewUserDTO("madeInHeaven" ,"Enrico", "Pucci");
+        user1 = new User(1L, "pucciE" ,"Enrico", "Pucci", null);
 
-        when(userDAO.findById(1)).thenReturn(Optional.of(existingUser1));
+        when(userDAO.findById(1)).thenReturn(Optional.of(user1));
 
-        userService.editUser(existingUser1);
+        userService.editUser(1 ,newUser1);
 
-        verify(userDAO, times(1)).findById(1);
-        verify(userDAO, times(1)).save(existingUser1);
-    }
-
-    @Test
-    @DisplayName("editUser() - User without ID")
-    void editUserWithoutId() {
-        user1 = new User(null, "madeInHeaven" ,"Enrico", "Pucci", null);
-        assertThrows(IllegalArgumentException.class, () -> userService.editUser(user1));
+        verify(userDAO, times(2)).findById(1);
+        verify(userDAO, times(1)).save(user1);
     }
 
     @Test
     @DisplayName("editUser() - User not found")
     void editUserNotFound() {
-        user1 = new User(1L, "madeInHeaven" ,"Enrico", "Pucci", null);
+        newUser1 = new NewUserDTO("madeInHeaven" ,"Enrico", "Pucci");
         when(userDAO.findById(1)).thenReturn(Optional.empty());
-        assertThrows(UserNotFoundException.class, () -> userService.editUser(user1));
+
+        assertThrows(UserNotFoundException.class, () -> userService.editUser(1, newUser1));
     }
 }

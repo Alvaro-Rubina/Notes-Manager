@@ -2,6 +2,7 @@ package org.alvarub.notesmanager.service;
 
 import org.alvarub.notesmanager.dao.NoteDAO;
 import org.alvarub.notesmanager.dao.UserDAO;
+import org.alvarub.notesmanager.dto.NewNoteDTO;
 import org.alvarub.notesmanager.dto.NoteDTO;
 import org.alvarub.notesmanager.exception.NoteNotFoundException;
 import org.alvarub.notesmanager.exception.UserNotFoundException;
@@ -39,8 +40,9 @@ class NoteServiceTest {
     // Attributes
     private Note note1;
     private Note note2;
-    private Note existingNote1;
-    private User user1;
+
+    private NewNoteDTO newNote1;
+    private NewNoteDTO newNote2;
 
     @BeforeEach
     void setUp() {
@@ -49,12 +51,14 @@ class NoteServiceTest {
 
     @Test
     void saveNote() {
-        user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
-        note1 = new Note("A silly note", "Blablabla", user1);
+        newNote1 = new NewNoteDTO("A silly note", "Blablabla", 1L);
+        note1 = new Note();
 
         when(userDAO.existsById(1)).thenReturn(true);
+        when(noteMapper.newNoteDTOToNote(newNote1)).thenReturn(note1);
+        when(userDAO.findById(1)).thenReturn(Optional.of(new User()));
 
-        noteService.saveNote(note1);
+        noteService.saveNote(newNote1);
         verify(userDAO, times(1)).existsById(1);
         verify(noteDAO, times(1)).save(note1);
     }
@@ -63,20 +67,19 @@ class NoteServiceTest {
     @DisplayName("saveNote() - Empty or null fields")
     void saveNoteEmptyFields() {
         // 4 casos de prueba (Sin título, sin contenido, sin usuario, y usuario no existente)
-        user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
-        note1 = new Note("", "Blablabla", user1);
-        note2 = new Note("A silly note", "", user1);
+        newNote1 = new NewNoteDTO("", "Blablabla", 1L);
+        newNote2 = new NewNoteDTO("A silly note", "", 1L);
 
         when(userDAO.existsById(1)).thenReturn(true);
-        assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(note1));
-        assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(note2));
+        assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(newNote1));
+        assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(newNote2));
 
-        note1 = new Note("A silly note", "Blablabla", null);
-        note2 = new Note("A silly note", "Blablabla", user1);
+        newNote1 = new NewNoteDTO("A silly note", "Blablabla", null);
+        newNote2 = new NewNoteDTO("A silly note", "Blablabla", 1L);
 
         when(userDAO.existsById(1)).thenReturn(false);
-        assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(note1));
-        assertThrows(UserNotFoundException.class, () -> noteService.saveNote(note2));
+        assertThrows(IllegalArgumentException.class, () -> noteService.saveNote(newNote1));
+        assertThrows(UserNotFoundException.class, () -> noteService.saveNote(newNote2));
     }
 
     @Test
@@ -144,60 +147,40 @@ class NoteServiceTest {
 
     @Test
     void editNote() {
-        user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
-        note1 = new Note("A NEW (!!!) silly note", "Blablabla (v2)", user1);
-        existingNote1 = new Note("A silly note", "Blablabla", user1);
-        existingNote1.setNoteID(1L);
-        note1.setNoteID(1L);
+        newNote1 = new NewNoteDTO("A NEW (!!!) silly note", "Blablabla (v2)", 1L);
+        note1 = new Note("A silly note", "Blablabla", new User());
 
-        when(noteDAO.findById(1)).thenReturn(Optional.of(existingNote1));
+        when(noteDAO.findById(1)).thenReturn(Optional.of(note1));
         when(userDAO.existsById(1)).thenReturn(true);
+        when(userDAO.findById(1)).thenReturn(Optional.of(new User()));
 
-        noteService.editNote(note1);
+        noteService.editNote(1, newNote1);
 
-        verify(noteDAO, times(1)).findById(1);
+        verify(noteDAO, times(2)).findById(1);
         verify(userDAO, times(1)).existsById(1);
-        verify(noteDAO, times(1)).save(existingNote1);
-    }
-
-    @Test
-    @DisplayName("editNote() - Note whitout ID")
-    void editNoteWithoutId() {
-        user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
-        note1 = new Note("A NEW (!!!) silly note", "Blablabla (v2)", user1);
-        existingNote1 = new Note("A silly note", "Blablabla", user1);
-        existingNote1.setNoteID(1L);
-        note1.setNoteID(null);
-
-        assertThrows(IllegalArgumentException.class, () -> noteService.editNote(note1));
+        verify(noteDAO, times(1)).save(note1);
     }
 
     @Test
     @DisplayName("editNote() - User not found")
     void editNoteWithUserNotFound() {
-        user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
-        note1 = new Note("A NEW (!!!) silly note", "Blablabla (v2)", user1);
-        existingNote1 = new Note("A silly note", "Blablabla", user1);
-        existingNote1.setNoteID(1L);
-        note1.setNoteID(1L);
+        newNote1 = new NewNoteDTO("A NEW (!!!) silly note", "Blablabla (v2)", 1L);
+        note1 = new Note("A silly note", "Blablabla", new User());
 
-        when(noteDAO.findById(1)).thenReturn(Optional.of(existingNote1));
+        when(noteDAO.findById(1)).thenReturn(Optional.of(note1));
         when(userDAO.existsById(1)).thenReturn(false);
 
-        assertThrows(UserNotFoundException.class, () -> noteService.editNote(note1));
+        assertThrows(UserNotFoundException.class, () -> noteService.editNote(1, newNote1));
     }
 
     @Test
     @DisplayName("editNote() - Note not found")
     void editNoteNotFound() {
-        user1 = new User(1L, "panaFu" ,"Fugo", "Pannacotta", null );
-        note1 = new Note("A NEW (!!!) silly note", "Blablabla (v2)", user1);
-        existingNote1 = new Note("A silly note", "Blablabla", user1);
-        existingNote1.setNoteID(1L);
-        note1.setNoteID(1L);
+        newNote1 = new NewNoteDTO("A NEW (!!!) silly note", "Blablabla (v2)", 1L);
+        note1 = new Note("A silly note", "Blablabla", new User());
 
         when(noteDAO.findById(1)).thenReturn(Optional.empty());
 
-        assertThrows(NoteNotFoundException.class, () -> noteService.editNote(note1));
+        assertThrows(NoteNotFoundException.class, () -> noteService.editNote(1, newNote1));
     }
 }
