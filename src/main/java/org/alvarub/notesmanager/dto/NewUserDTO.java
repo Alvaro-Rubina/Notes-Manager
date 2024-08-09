@@ -4,15 +4,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class NewUserDTO {
 
-    @Schema(description = "Username")
+    @Schema(example = "pucciE")
     private String userName;
 
-    @Schema(description = "Nombre")
+    @Schema(example = "Enrico")
     private String name;
 
-    @Schema(description = "Apellido")
+    @Schema(example = "Pucci")
     private String lastName;
 }

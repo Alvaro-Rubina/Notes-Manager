@@ -1,19 +1,20 @@
 package org.alvarub.notesmanager.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class NewNoteDTO {
 
-    @Schema(description = "Título de la nota")
+    @Schema(example = "A silly note")
     private String title;
 
-    @Schema(description = "Contenido de la nota")
+    @Schema(example = "Blablabla")
     private String content;
 
-    @Schema(description = "ID del usuario dueño de la nota", example = "1")
+    @Schema(example = "1")
     private Long creatorID;
 }
