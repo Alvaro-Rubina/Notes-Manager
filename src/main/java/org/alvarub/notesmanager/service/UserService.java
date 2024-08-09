@@ -1,6 +1,7 @@
 package org.alvarub.notesmanager.service;
 
 import org.alvarub.notesmanager.dao.UserDAO;
+import org.alvarub.notesmanager.dto.NewUserDTO;
 import org.alvarub.notesmanager.dto.UserDTO;
 import org.alvarub.notesmanager.exception.NoteNotFoundException;
 import org.alvarub.notesmanager.exception.UserNotFoundException;
@@ -21,17 +22,18 @@ public class UserService implements IUserService{
     UserMapper userMapper;
 
     @Override
-    public void saveUser(User user) {
-        if(user.getUserName() == null || user.getUserName().isEmpty()){
+    public void saveUser(NewUserDTO newUserDTO) {
+        if(newUserDTO.getUserName() == null || newUserDTO.getUserName().isEmpty()){
             throw new IllegalArgumentException("El username es obligatorio");
 
-        } else if (user.getName() == null || user.getName().isEmpty()){
+        } else if (newUserDTO.getName() == null || newUserDTO.getName().isEmpty()){
             throw new IllegalArgumentException("El nombre es obligatorio");
 
-        } else if (user.getLastName() == null || user.getLastName().isEmpty()){
+        } else if (newUserDTO.getLastName() == null || newUserDTO.getLastName().isEmpty()){
             throw new IllegalArgumentException("El apellido es obligatorio");
 
         } else {
+            User user = userMapper.newUserDTOToUser(newUserDTO);
             userDAO.save(user);
         }
     }
@@ -69,25 +71,26 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void editUser(User user) {
+    public void editUser(int id, NewUserDTO newUserDTO) {
 
-        if (user.getUserID() == null){
-            throw new IllegalArgumentException("El ID del usuario es obligatorio");
+        User user;
+        if (userDAO.findById(id).isPresent()){
+            user = userDAO.findById(id).get();
+
+        } else {
+            throw new UserNotFoundException("No existe el usuario con el id: " + id);
         }
 
-        User existingUser = userDAO.findById(Math.toIntExact(user.getUserID())).orElseThrow(() ->
-                new UserNotFoundException("No existe el usuario con el id: " + user.getUserID()));
-
-        if (user.getUserName() != null){
-            existingUser.setUserName(user.getUserName());
+        if (newUserDTO.getUserName() != null){
+            user.setUserName(newUserDTO.getUserName());
         }
-        if (user.getName() != null){
-            existingUser.setName(user.getName());
+        if (newUserDTO.getName() != null){
+            user.setName(newUserDTO.getName());
         }
-        if (user.getLastName() != null){
-            existingUser.setLastName(user.getLastName());
+        if (newUserDTO.getLastName() != null){
+            user.setLastName(newUserDTO.getLastName());
         }
 
-        userDAO.save(existingUser);
+        userDAO.save(user);
     }
 }
