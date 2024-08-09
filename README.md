@@ -2,9 +2,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Alvaro-Rubina/Notes-Manager">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
 <h3 align="center">Notes Manager</h3>
 
@@ -119,12 +116,21 @@ Antes que nada, asegurate de tener instalado lo siguiente en tu computadora!
    Después, abrí el proyecto con tu IDE de preferencia.
 2. **Configurá la base de datos**
    
-   Ejecutá Wampserver, ingresá a [phpMyAdmin](http://localhost/phpmyadmin/) e iniciá sesion. Por defecto, el valor para Usuario es **root** y para Contraseña nada, vacío. Pero eso depende de tu configuración!
+   Ejecutá Wampserver, ingresá a [phpMyAdmin](http://localhost/phpmyadmin/) e iniciá sesion. Si es la primera vez que accedés, el valor por defecto para Usuario es **root** y para Contraseña nada, vacío. Si ya ocupaste phpMyAmin con anterioridad, podes iniciar sesión de esta forma u ocupar alguna cuenta de usuario que tengas.
    Una vez dentro de phpMyAdmin, creá una base de datos con el nombre que quieras (para esta demostración, la base se llama **notes**), seleccioná *utf8mb4_spanish_ci* como Cotejamiento para que no tengás problemas con caráteres como acentos; y por último creá la base.
    ![Demo del proyecto](images/db-creation.gif)
-4. **Configurá las variables de entorno**
+3. **Configurá las variables de entorno**
 
-   En tu IDE //TODO//
+   Para este paso vas a necesitar los datos que configuraste en el paso anterior: el usuario, contraseña y el nombre de la base de datos.
+   Dentro de tu IDE vas a navegar hasta el archivo *application.properties* (src/main/resources/application.properties) y vas a reemplazar:
+   - **${DB_URL}** por: jdbc:mysql://localhost:3306/nombre_bd?useSSL=false&serverTimezone=UTC
+
+     Donde reemplazarás nombre_bd por el nombre de tu base de datos.
+   - **${DB_USER_NAME}** por tu usuario (si no lo cambiaste, sigue siendo *root*)
+   - ${DB_PASSWORD} por tu contraseña (si no la cambiaste, deja el campo vacío)
+  
+     Alternativamente, podés optar por no reemplazar dichos campos y en su lugar configurar las variables de entorno del proyecto desde las configuraciones de tu IDE. Abajo hay una demostración de cómo hacerlo desde IntelliJ
+     ![Configuracion variables de entorno](images/env-variables.gif)
 
 
 
