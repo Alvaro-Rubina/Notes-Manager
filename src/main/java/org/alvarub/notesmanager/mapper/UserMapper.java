@@ -1,10 +1,10 @@
 package org.alvarub.notesmanager.mapper;
 
+import org.alvarub.notesmanager.dto.NewUserDTO;
 import org.alvarub.notesmanager.dto.UserDTO;
 import org.alvarub.notesmanager.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ import java.util.List;
 public interface UserMapper {
 
     // Mapeos
+    User newUserDTOToUser(NewUserDTO newUserDTO);
+
     @Mapping(source = "notes", target = "notes")
     UserDTO userToUserDTO(User user);
 
