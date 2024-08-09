@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.alvarub.notesmanager.dto.NewNoteDTO;
 import org.alvarub.notesmanager.dto.NoteDTO;
 import org.alvarub.notesmanager.exception.NoteNotFoundException;
 import org.alvarub.notesmanager.exception.UserNotFoundException;
@@ -30,15 +31,15 @@ public class NoteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Nota creada", content = {
                     @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Note.class))
+                            schema = @Schema(implementation = NewNoteDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
     @PostMapping("/notes/new")
-    public ResponseEntity<String> saveNote(@RequestBody Note note) {
+    public ResponseEntity<String> saveNote(@RequestBody NewNoteDTO newNoteDTO) {
         try {
-            noteService.saveNote(note);
+            noteService.saveNote(newNoteDTO);
             return new ResponseEntity<>("Nota creada", HttpStatus.CREATED);
 
         } catch (IllegalArgumentException e){
@@ -97,16 +98,15 @@ public class NoteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Nota actualizada", content = {
                     @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Note.class))
+                            schema = @Schema(implementation = NewNoteDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Nota o usuario no encontrado", content = @Content)
     })
-    @PutMapping("/notes/edit")
-    public ResponseEntity<String> updateNote(@RequestBody Note note) {
-
+    @PutMapping("/notes/edit/{id}")
+    public ResponseEntity<String> updateNote(@PathVariable int id ,@RequestBody NewNoteDTO newNoteDTO) {
         try {
-            noteService.editNote(note);
+            noteService.editNote(id, newNoteDTO);
             return new ResponseEntity<>("Nota actualizada", HttpStatus.CREATED);
 
         } catch (IllegalArgumentException e){

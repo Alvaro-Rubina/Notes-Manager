@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.alvarub.notesmanager.dto.NewUserDTO;
 import org.alvarub.notesmanager.dto.UserDTO;
 import org.alvarub.notesmanager.exception.UserNotFoundException;
-import org.alvarub.notesmanager.model.User;
 import org.alvarub.notesmanager.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,14 +29,14 @@ public class UserController {
     @ApiResponses( value = {
             @ApiResponse(responseCode = "201", description = "Usuario registrado", content = {
                     @Content(mediaType = "application/json",
-                            schema =  @Schema(implementation = User.class))
+                            schema =  @Schema(implementation = NewUserDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content)
     })
     @PostMapping("/users/new")
-    public ResponseEntity<String> saveUser(@RequestBody User user) {
+    public ResponseEntity<String> saveUser(@RequestBody NewUserDTO newUserDTO) {
         try {
-            userService.saveUser(user);
+            userService.saveUser(newUserDTO);
             return new ResponseEntity<>("Usuario registrado", HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -88,15 +88,15 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuario actualizado", content = {
                     @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = User.class))
+                            schema = @Schema(implementation = NewUserDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
-    @PutMapping("/users/edit")
-    public ResponseEntity<String> editUser(@RequestBody User user) {
+    @PutMapping("/users/edit/{id}")
+    public ResponseEntity<String> editUser(@PathVariable int id ,@RequestBody NewUserDTO newUserDTO) {
         try {
-            userService.editUser(user);
+            userService.editUser(id, newUserDTO);
             return new ResponseEntity<>("Usuario actualizado", HttpStatus.OK);
 
         } catch (IllegalArgumentException e) {
