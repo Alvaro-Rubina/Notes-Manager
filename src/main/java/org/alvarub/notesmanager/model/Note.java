@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Note {
 
-    // Attributes
+    //
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "note_gen")
     @SequenceGenerator(name = "note_gen", sequenceName = "note_seq", allocationSize = 1)
@@ -24,12 +24,12 @@ public class Note {
     private LocalDate creationDate = LocalDate.now();
     private int characterCount;
 
-    // Associations
+    //
     @ManyToOne
     @JoinColumn(name = "user_user_id", nullable = false)
     private User user;
 
-    // Constructor
+    //
     public Note(String title, String content, User user) {
         this.title = title;
         setContent(content);
