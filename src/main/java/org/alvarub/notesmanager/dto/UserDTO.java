@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 public class UserDTO {
 
-    // Attributes
+    private Long userID;
     private String userName;
     private String name;
     private String lastName;

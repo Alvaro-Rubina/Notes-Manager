@@ -9,9 +9,10 @@ import java.time.LocalDate;
 @Builder
 public class NoteDTO {
 
-    // Attributes
+    private Long noteID;
     private String title;
     private String content;
+    private int characterCount;
     private LocalDate creationDate;
     private String creatorUserName;
 }
