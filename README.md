@@ -83,11 +83,11 @@ El proyecto emplea una arquitectura multicapas que incluye las capas Controller,
 
 * [![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat&logo=spring&logoColor=white)](https://spring.io/projects/spring-boot)
 * [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)](https://www.mysql.com/)
-* [![MapStruct](https://img.shields.io/badge/MapStruct-6D7AA4?style=flat&logo=mapstruct&logoColor=white)](https://mapstruct.org/)
+* [![MapStruct](https://img.shields.io/badge/MapStruct-6D7AA4?style=flat)](https://mapstruct.org/)
 * [![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=swagger&logoColor=white)](https://swagger.io/)
-* [![JUnit](https://img.shields.io/badge/JUnit-25A162?style=flat&logo=junit&logoColor=white)](https://junit.org/)
-* [![Mockito](https://img.shields.io/badge/Mockito-00303F?style=flat&logo=mockito&logoColor=white)](https://site.mockito.org/)
-* [![Lombok](https://img.shields.io/badge/Lombok-2C2C2C?style=flat&logo=lombok&logoColor=white)](https://projectlombok.org/)
+* [![JUnit](https://img.shields.io/badge/JUnit-25A162?style=flat)](https://junit.org/)
+* [![Mockito](https://img.shields.io/badge/Mockito-00303F?style=flat)](https://site.mockito.org/)
+* [![Lombok](https://img.shields.io/badge/Lombok-2C2C2C?style=flat)](https://projectlombok.org/)
 
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
