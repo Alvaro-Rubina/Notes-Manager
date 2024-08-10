@@ -84,12 +84,11 @@ public class NoteService implements INoteService {
         Note note;
         if (noteDAO.findById(idNote).isPresent()){
             note = noteDAO.findById(idNote).get();
-
         } else {
             throw new NoteNotFoundException("No existe la nota con el id: " + idNote);
         }
 
-        if (!userDAO.existsById(Math.toIntExact(newNoteDTO.getCreatorID()))){
+        if (newNoteDTO.getCreatorID() != null && !userDAO.existsById(Math.toIntExact(newNoteDTO.getCreatorID()))){
             throw new UserNotFoundException("No existe el usuario con el id: " + newNoteDTO.getCreatorID());
         }
 
@@ -102,7 +101,6 @@ public class NoteService implements INoteService {
         if (newNoteDTO.getCreatorID() != null){
             note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.getCreatorID())).get());
         }
-
         noteDAO.save(note);
     }
 }
