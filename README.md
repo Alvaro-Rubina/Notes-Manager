@@ -47,7 +47,7 @@
           <ul>
             <li><a href="#new-note">New Note</a></li>
             <li><a href="#find-note">Find Note</a></li>
-            <li><a href="#find-all">Get all</a></li>
+            <li><a href="#find-all">Find all</a></li>
             <li><a href="#edit-note">Edit Note</a></li>
             <li><a href="#delete-note">Delete Note</a></li>
           </ul>
@@ -155,7 +155,10 @@ Por último, si vas a phpMyAdmin y revisas la base de datos, vas a ver que se cr
 
 En esta sección se demuestra el funcionamiento de cada endpoint mediante ejemplos de solicitudes HTTP, de esta forma vas a comprender cómo realizar un CRUD tanto de Usuarios como Notas.  
 Antes de profundizar, dirigite a la siguiente dirección en tu navegador: http://localhost:8080/swagger-ui/index.html. Cuando hayas accedido, te vas a encontrar con una interfaz visual amigable que proporciona Swagger, donde se documentaron los endpoints.
-Aunque los ejemplos mostrados mas adelantes se realizaron con la interfaz de Swagger, tambien puedes realizarlos con algún programa como Postman.
+
+Mas adelante se muestran ejemplos realizados mediante la interfaz que brinda Swagger. Si deseas probar los endpoints mediante Postman, accede a colección con el siguiente botón:
+
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/33441736-6b60df2c-fc2f-46c4-97d6-56dadc13a173?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D33441736-6b60df2c-fc2f-46c4-97d6-56dadc13a173%26entityType%3Dcollection%26workspaceId%3D86789605-6875-4391-8327-7c3a778f18dd)
 
 ### User 
 ---
@@ -216,7 +219,7 @@ Responses:
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
 
 
-#### Get all
+#### Find all
 
 Para encontrar todos los usuarios registrados: HTTP REQUEST **GET** en `/users/find-all`.
 
@@ -354,7 +357,7 @@ Responses:
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
 
 
-#### Get all
+#### Find all
 
 Para encontrar todas las notas guardadas: HTTP REQUEST **GET** en `/notes/find-all`.
 
