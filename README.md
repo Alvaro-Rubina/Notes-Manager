@@ -152,52 +152,102 @@ En esta sección se demuestra el funcionamiento de cada endpoint mediante ejempl
 Antes de profundizar, dirigite a la siguiente dirección en tu navegador: http://localhost:8080/swagger-ui/index.html. Cuando hayas accedido, te vas a encontrar con una interfaz visual amigable que proporciona Swagger, donde se documentaron los endpoints.
 Aunque los ejemplos mostrados mas adelantes se realizaron con la interfaz de Swagger, tambien puedes realizarlos con algún programa como Postman.
 
-### User
+### User 
+---
 
-Dentro de la sección de Usuarios se encuentran los endpoints para las distintas solicitudes y una pequeña descripción de lo que hacen.
+Dentro de la sección de User se encuentran los endpoints para las distintas solicitudes y una pequeña descripción de lo que hacen.
 
 #### New User
 
 Para registrar un nuevo usuario: HTTP REQUEST **POST** en `/users/new`.
+
 - En el cuerpo de la request se envía un objeto `NewUserDTO` en formato JSON que luego es mapeado a un objeto `User` para ser agregado a la BBDD.
 - Todos los parámetros son obligatorios.
-![Ejemplo POST USER 1](images/post-user-1.png)
-![Ejemplo POST USER 2](images/post-user-2.png)
-RESPONSES:
+
+<p align="center">Request</p>
+<p align="center">
+  
+  ![Ejemplo POST USER 1](images/post-user-1.png)
+</p>
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo POST USER 2](images/post-user-2.png)
+</p>
+
+Responses:
 - `201`: Usuario registrado.
 - `400`: Parámetros inválidos.
   
 #### Find User
 
 Para encontrar un usuario: HTTP REQUEST **GET** en `/users/find/{id}`.
-- En el url se envía el ID del usuario como parámetro.
-- Devuelve un objeto UserDTO.
-![Ejemplo GET USER 1](images/get-user-1.png)
-![Ejemplo GET USER 2](images/get-user-2.png)
-RESPONSES:
+
+- En el URL se envía el ID del usuario como parámetro.
+- Devuelve un objeto `UserDTO`.
+
+<p align="center">Request</p>
+<p align="center">
+  
+  ![Ejemplo GET USER 1](images/get-user-1.png)
+</p>
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo GET USER 2](images/get-user-2.png)
+</p>
+
+Responses:
 - `200`: Usuario encontrado.
 - `404`: Usuario no encontrado.
 
 #### Get all Users
 
 Para encontrar todos los usuarios registrados: HTTP REQUEST **GET** en `/users/find-all`.
+
 - Sin parámetros y sin cuerpo.
-- Devuelve una liste de objetos UserDTO. Si no hay usuarios, devuelve una lista vacía.
-![Ejemplo GET ALL USERS](images/get-all-users.png)
-RESPONSES:
+- Devuelve una lista de objetos `UserDTO`. Si no hay usuarios, devuelve una lista vacía.
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo GET ALL USERS](images/get-all-users.png)
+</p>
+
+Responses:
 - `200`: OK.
 
 #### Edit User
 
 Para editar un usuario: HTTP REQUEST **PUT** en `/users/edit/{id}`.
-- En el url se envía el ID del usuario a editar como parámetro.
+
+- En el URL se envía el ID del usuario a editar como parámetro.
 - En el cuerpo de la request se envía un objeto `NewUserDTO` en formato JSON con los datos del usuario que van a ser editados. No es obligatorio enviar todos los datos, solo los que van a ser editados.
-- ID en el url es OBLIGATORIO.
-![Ejemplo EDIT USER 1](images/edit-user-1.png)
-![Ejemplo EDIT USER 2](images/edit-user-2.png)
+- El ID en el URL es **OBLIGATORIO**.
+
+<p align="center">Request</p>
+<p align="center">
+  
+  ![Ejemplo EDIT USER 1](images/edit-user-1.png)
+</p>
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo EDIT USER 2](images/edit-user-2.png)
+</p>
+
 Si buscamos al usuario con ID = 1 luego de editarlo:
-![Ejemplo EDIT USER 3](images/edit-user-3.png)
-RESPONES:
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo EDIT USER 3](images/edit-user-3.png)
+</p>
+
+Responses:
 - `200`: Usuario actualizado.
 - `400`: Parámetros inválidos.
 - `404`: Usuario no encontrado.
@@ -205,23 +255,137 @@ RESPONES:
 #### Delete User
 
 Para eliminar un usuario: HTTP REQUEST **DELETE** en `/users/delete/{id}`.
-- En el url se envía el ID del usuario a eliminar como parámetro.
-![Ejemplo DELETE USER](images/delete-user.png)
+
+- En el URL se envía el ID del usuario a eliminar como parámetro.
+
+<p align="center">Request</p>
+<p align="center">
+  
+  ![Ejemplo DELETE USER](images/delete-user.png)
+</p>
+
 RESPONSES:
 - `200`: Usuario eliminado.
 - `404`: Usuario no encontrado.
 
 ### Note
+---
 
-#### Create Note
+Dentro de la sección de Note se encuentran los endpoints para las distintas solicitudes y una pequeña descripción de lo que hacen.
+
+#### New Note
+
+Para guardar una nueva nota: HTTP REQUEST **POST** en `/notes/new`.
+
+- En el cuerpo de la request se envía un objeto `NewNoteDTO` en formato JSON que luego es mapeado a un objeto `Note` para ser agregado a la BBDD.
+- Todos los parámetros son obligatorios.
+- creatorID hace referencia al usuario que ha creado la nota.
+
+<p align="center">Request</p>
+<p align="center">
+  
+  ![Ejemplo POST NOTE 1](images/post-note-1.png)
+</p>
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo POST NOTE 2](images/post-note-2.png)
+</p>
+
+Responses:
+- `201`: Nota creada.
+- `400`: Parámetros inválidos.
+- `404`: Usuario no encontrado.
 
 #### Find Note
 
+Para encontrar una nota: HTTP REQUEST **GET** en `/notes/find/{id}`.
+
+- En el URL se envía el ID de la nota como parámetro.
+- Devuelve un objeto `NoteDTO`.
+
+<p align="center">Request</p>
+<p align="center">
+  
+  ![Ejemplo GET NOTE 1](images/get-note-1.png)
+</p>
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo GET NOTE 2](images/get-note-2.png)
+</p>
+
+Responses:
+- `200`: Nota encontrada.
+- `404`: Nota no encontrada.
+
 #### Get all Notes
+
+Para encontrar todas las notas guardadas: HTTP REQUEST **GET** en `/notes/find-all`.
+
+- Sin parámetros y sin cuerpo.
+- Devuelve una lista de objetos `NoteDTO`. Si no hay notas, devuelve una lista vacía.
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo GET ALL NOTES](images/get-all-notes.png)
+</p>
+
+Responses:
+- `200`: OK.
 
 #### Edit Note
 
+Para editar una nota: HTTP REQUEST **PUT** en `/notes/edit/{id}`.
+
+- En el URL se envía el ID de la nota a editar como parámetro.
+- En el cuerpo de la request se envía un objeto `NewNoteDTO` en formato JSON con los datos de la nota que van a ser editados. No es obligatorio enviar todos los datos, solo los que van a ser editados.
+- El ID en el URL es **OBLIGATORIO**.
+
+<p align="center">Request</p>
+<p align="center">
+  
+  ![Ejemplo EDIT NOTE 1](images/edit-note-1.png)
+</p>
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo EDIT NOTE 2](images/edit-note-2.png)
+</p>
+
+Si buscamos a la nota con ID = 1 luego de editarla:
+
+<p align="center">Response</p>
+<p align="center">
+  
+  ![Ejemplo EDIT NOTE 3](images/edit-note-3.png)
+</p>
+
+Responses:
+- `200`: Nota actualizada.
+- `400`: Parámetros inválidos.
+- `404`: Nota o usuario no encontrado.
+
 #### Delete Note
+
+Para eliminar una nota: HTTP REQUEST **DELETE** en `/notes/delete/{id}`.
+
+- En el URL se envía el ID de la nota a eliminar como parámetro.
+
+<p align="center">Request</p>
+<p align="center">
+  
+  ![Ejemplo DELETE NOTE](images/delete-note.png)
+</p>
+
+RESPONSES:
+- `200`: Nota eliminada.
+- `404`: Nota no encontrada.
+
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
 
