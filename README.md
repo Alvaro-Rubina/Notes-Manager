@@ -37,7 +37,7 @@
           <ul>
             <li><a href="#new-user">New User</a></li>
             <li><a href="#find-user">Find User</a></li>
-            <li><a href="#find-all-users">Find all Users</a></li>
+            <li><a href="#find-all">Find all</a></li>
             <li><a href="#edit-user">Edit User</a></li>
             <li><a href="#delete-user">Delete User</a></li>
           </ul>
@@ -47,7 +47,7 @@
           <ul>
             <li><a href="#new-note">New Note</a></li>
             <li><a href="#find-note">Find Note</a></li>
-            <li><a href="#find-all-notes">Get all Notes</a></li>
+            <li><a href="#find-all">Get all</a></li>
             <li><a href="#edit-note">Edit Note</a></li>
             <li><a href="#delete-note">Delete Note</a></li>
           </ul>
@@ -65,13 +65,15 @@
 ## Acerca de
 
 
-Notes Manger es una REST API desarollada con Spring Boot que proporcion las herramientas necesarias para de gestionar a cada usuario y sus notas de manera eficiente. Para asegurar la persistencia de los datos, se hace uso de una base de datos MySQL, permitiendo realizar operaciones como crear, editar, consultar y eliminar usuarios y notas.
+Notes Manger es una REST API desarollada con Spring Boot que proporciona las herramientas necesarias para de gestionar usuarios y sus notas de manera eficiente. Para asegurar la persistencia de los datos, se hace uso de una base de datos MySQL, permitiendo realizar operaciones como crear, editar, consultar y eliminar usuarios y notas.
 El proyecto emplea una arquitectura multicapas que incluye las capas Controller, Model, Service, DTO y DAO). También se cuenta con herramientas clave como:
 - **Swagger**: Para la documentación.
 - **MapStruct**: Para el mapeo entre entidades y DTOs.
 - **Mockito**: Para la realización de pruebas unitarias.
 - **Lombok**: Para reducir el código boilerplate.
 
+
+*Proximamente se agregará autenticación*
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
 
@@ -89,7 +91,6 @@ El proyecto emplea una arquitectura multicapas que incluye las capas Controller,
 
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
@@ -145,6 +146,10 @@ Arriba de ese log, vas a ver también otro log como este:
 Este log también es importante, puesto que nos indica en que puerto se desplegó **Tomcat**, que es un servidor embebido que provee Spring Boot para desplegar la aplicación de forma local. El puerto por defecto que utiliza Tomcat es el 8080, que es donde se manejan las solicitudes HTTP que profundizaremos en la siguiente sección.
 Por último, si vas a phpMyAdmin y revisas la base de datos, vas a ver que se crearon de forma automáticamente las tablas **User** y **Note** junto con sus correspondientes columnas.
 
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
+
 <!-- USAGE EXAMPLES -->
 ## Guía de uso
 
@@ -179,7 +184,11 @@ Para registrar un nuevo usuario: HTTP REQUEST **POST** en `/users/new`.
 Responses:
 - `201`: Usuario registrado.
 - `400`: Parámetros inválidos.
-  
+
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
+
 #### Find User
 
 Para encontrar un usuario: HTTP REQUEST **GET** en `/users/find/{id}`.
@@ -203,7 +212,11 @@ Responses:
 - `200`: Usuario encontrado.
 - `404`: Usuario no encontrado.
 
-#### Get all Users
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
+
+#### Get all
 
 Para encontrar todos los usuarios registrados: HTTP REQUEST **GET** en `/users/find-all`.
 
@@ -218,6 +231,10 @@ Para encontrar todos los usuarios registrados: HTTP REQUEST **GET** en `/users/f
 
 Responses:
 - `200`: OK.
+
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
 
 #### Edit User
 
@@ -252,6 +269,10 @@ Responses:
 - `400`: Parámetros inválidos.
 - `404`: Usuario no encontrado.
 
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
+
 #### Delete User
 
 Para eliminar un usuario: HTTP REQUEST **DELETE** en `/users/delete/{id}`.
@@ -267,6 +288,10 @@ Para eliminar un usuario: HTTP REQUEST **DELETE** en `/users/delete/{id}`.
 RESPONSES:
 - `200`: Usuario eliminado.
 - `404`: Usuario no encontrado.
+
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
 
 ### Note
 ---
@@ -298,6 +323,10 @@ Responses:
 - `400`: Parámetros inválidos.
 - `404`: Usuario no encontrado.
 
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
+
 #### Find Note
 
 Para encontrar una nota: HTTP REQUEST **GET** en `/notes/find/{id}`.
@@ -321,7 +350,11 @@ Responses:
 - `200`: Nota encontrada.
 - `404`: Nota no encontrada.
 
-#### Get all Notes
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
+
+#### Get all
 
 Para encontrar todas las notas guardadas: HTTP REQUEST **GET** en `/notes/find-all`.
 
@@ -336,6 +369,10 @@ Para encontrar todas las notas guardadas: HTTP REQUEST **GET** en `/notes/find-a
 
 Responses:
 - `200`: OK.
+
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
 
 #### Edit Note
 
@@ -370,6 +407,10 @@ Responses:
 - `400`: Parámetros inválidos.
 - `404`: Nota o usuario no encontrado.
 
+
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
+
+
 #### Delete Note
 
 Para eliminar una nota: HTTP REQUEST **DELETE** en `/notes/delete/{id}`.
@@ -390,97 +431,20 @@ RESPONSES:
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
-## Contact
+## Contacto
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Alvaro Rubina - [Linkedin](https://www.linkedin.com/in/alvaro-rubina/) - alvarorubina132@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Link del proyecto: [https://github.com/Alvaro-Rubina/Notes-Manager](https://github.com/Alvaro-Rubina/Notes-Manager)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
 
 
 
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+## Menciones
 
-* []()
-* []()
-* []()
+* [Plantilla utilizada para el README](https://github.com/othneildrew/Best-README-Template)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+<p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
