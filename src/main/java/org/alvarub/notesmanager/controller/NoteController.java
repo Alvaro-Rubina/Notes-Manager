@@ -96,7 +96,7 @@ public class NoteController {
 
     @Operation(summary = "Actualizar una nota")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Nota actualizada", content = {
+            @ApiResponse(responseCode = "200", description = "Nota actualizada", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = NewNoteDTO.class))
             }),
@@ -107,7 +107,7 @@ public class NoteController {
     public ResponseEntity<String> updateNote(@PathVariable int id ,@RequestBody NewNoteDTO newNoteDTO) {
         try {
             noteService.editNote(id, newNoteDTO);
-            return new ResponseEntity<>("Nota actualizada", HttpStatus.CREATED);
+            return new ResponseEntity<>("Nota actualizada", HttpStatus.OK);
 
         } catch (IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
