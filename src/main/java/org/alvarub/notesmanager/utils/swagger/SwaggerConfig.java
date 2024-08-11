@@ -1,4 +1,4 @@
-package org.alvarub.notesmanager.swagger;
+package org.alvarub.notesmanager.utils.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.OpenAPI;

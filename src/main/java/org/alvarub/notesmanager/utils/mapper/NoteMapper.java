@@ -1,8 +1,8 @@
-package org.alvarub.notesmanager.mapper;
+package org.alvarub.notesmanager.utils.mapper;
 
-import org.alvarub.notesmanager.dto.NewNoteDTO;
-import org.alvarub.notesmanager.dto.NoteDTO;
-import org.alvarub.notesmanager.model.Note;
+import org.alvarub.notesmanager.model.dto.NewNoteDTO;
+import org.alvarub.notesmanager.model.dto.NoteDTO;
+import org.alvarub.notesmanager.model.entity.Note;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

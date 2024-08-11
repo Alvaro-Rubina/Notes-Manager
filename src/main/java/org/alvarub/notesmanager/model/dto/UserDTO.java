@@ -1,4 +1,4 @@
-package org.alvarub.notesmanager.dto;
+package org.alvarub.notesmanager.model.dto;
 
 import lombok.*;
 

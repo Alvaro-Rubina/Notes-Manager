@@ -1,8 +1,7 @@
 package org.alvarub.notesmanager.service;
 
-import org.alvarub.notesmanager.dto.NewUserDTO;
-import org.alvarub.notesmanager.dto.UserDTO;
-import org.alvarub.notesmanager.model.User;
+import org.alvarub.notesmanager.model.dto.NewUserDTO;
+import org.alvarub.notesmanager.model.dto.UserDTO;
 
 import java.util.List;
 

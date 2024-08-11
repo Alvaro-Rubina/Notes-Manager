@@ -1,4 +1,4 @@
-package org.alvarub.notesmanager.model;
+package org.alvarub.notesmanager.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

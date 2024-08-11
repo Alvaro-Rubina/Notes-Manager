@@ -1,12 +1,11 @@
 package org.alvarub.notesmanager.service;
 
 import org.alvarub.notesmanager.dao.UserDAO;
-import org.alvarub.notesmanager.dto.NewUserDTO;
-import org.alvarub.notesmanager.dto.UserDTO;
-import org.alvarub.notesmanager.exception.NoteNotFoundException;
-import org.alvarub.notesmanager.exception.UserNotFoundException;
-import org.alvarub.notesmanager.mapper.UserMapper;
-import org.alvarub.notesmanager.model.User;
+import org.alvarub.notesmanager.model.dto.NewUserDTO;
+import org.alvarub.notesmanager.model.dto.UserDTO;
+import org.alvarub.notesmanager.utils.exception.UserNotFoundException;
+import org.alvarub.notesmanager.utils.mapper.UserMapper;
+import org.alvarub.notesmanager.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

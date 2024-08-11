@@ -1,8 +1,8 @@
 package org.alvarub.notesmanager.service;
 
-import org.alvarub.notesmanager.dto.NewNoteDTO;
-import org.alvarub.notesmanager.dto.NoteDTO;
-import org.alvarub.notesmanager.model.Note;
+import org.alvarub.notesmanager.model.dto.NewNoteDTO;
+import org.alvarub.notesmanager.model.dto.NoteDTO;
+
 import java.util.List;
 
 public interface INoteService {
