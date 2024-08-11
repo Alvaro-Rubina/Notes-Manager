@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @Tag(name = "Usuarios", description = "Controller | Consultas y operaciones con usuarios")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class UserController {
             }),
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content)
     })
-    @PostMapping("/users/new")
+    @PostMapping
     public ResponseEntity<String> saveUser(@RequestBody NewUserDTO newUserDTO) {
         try {
             userService.saveUser(newUserDTO);
@@ -51,8 +52,7 @@ public class UserController {
             }),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
-    @GetMapping("/users/find/{id}")
-    @ResponseBody
+    @GetMapping("/{id}") @ResponseBody
     public ResponseEntity<?> findUser(@Parameter(description = "ID del usuario", example = "1") @PathVariable int id) {
         try {
             return new ResponseEntity<>(userService.findUser(id), HttpStatus.OK);
@@ -63,8 +63,7 @@ public class UserController {
     }
 
     @Operation(summary = "Obtener todos los usuarios")
-    @GetMapping("/users/find-all")
-    @ResponseBody
+    @GetMapping @ResponseBody
     public List<UserDTO> getAllUsers() {
         return userService.getUsers();
     }
@@ -74,7 +73,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Usuario eliminado", content = @Content),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
-    @DeleteMapping("/users/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@Parameter(description = "ID del usuario", example = "1") @PathVariable int id) {
         try {
             userService.deleteUser(id);
@@ -93,7 +92,7 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
-    @PutMapping("/users/edit/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> editUser(@PathVariable int id ,@RequestBody NewUserDTO newUserDTO) {
         try {
             userService.editUser(id, newUserDTO);

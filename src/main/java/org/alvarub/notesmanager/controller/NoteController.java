@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @Tag(name = "Notas", description = "Controller | Consultas y operaciones con notas")
+@RequestMapping("/notes")
 public class NoteController {
 
     @Autowired
@@ -35,7 +36,7 @@ public class NoteController {
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
-    @PostMapping("/notes/new")
+    @PostMapping
     public ResponseEntity<String> saveNote(@RequestBody NewNoteDTO newNoteDTO) {
         try {
             noteService.saveNote(newNoteDTO);
@@ -58,8 +59,7 @@ public class NoteController {
                 }),
             @ApiResponse(responseCode = "404", description = "Nota no encontrada", content = @Content)
     })
-    @GetMapping("/notes/find/{id}")
-    @ResponseBody
+    @GetMapping("/{id}") @ResponseBody
     public ResponseEntity<?> findNote(@Parameter(description = "ID de la nota", example = "1") @PathVariable int id) {
         try {
             return new ResponseEntity<>(noteService.findNote(id), HttpStatus.OK);
@@ -71,8 +71,7 @@ public class NoteController {
 
     @Operation(summary = "Obtener todas las notas")
 
-    @GetMapping("/notes/find-all")
-    @ResponseBody
+    @GetMapping @ResponseBody
     public List<NoteDTO> getAllNotes() {
         return noteService.getNotes();
     }
@@ -82,7 +81,7 @@ public class NoteController {
             @ApiResponse(responseCode = "200", description = "Nota eliminada", content = @Content),
             @ApiResponse(responseCode = "404", description = "Nota no encontrada", content = @Content)
     })
-    @DeleteMapping("/notes/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteNote(@Parameter(description = "ID de la nota", example = "1") @PathVariable int id) {
         try {
             noteService.deleteNote(id);
@@ -102,7 +101,7 @@ public class NoteController {
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
             @ApiResponse(responseCode = "404", description = "Nota o usuario no encontrado", content = @Content)
     })
-    @PutMapping("/notes/edit/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateNote(@PathVariable int id ,@RequestBody NewNoteDTO newNoteDTO) {
         try {
             noteService.editNote(id, newNoteDTO);
