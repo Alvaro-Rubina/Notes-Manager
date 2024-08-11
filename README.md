@@ -23,10 +23,10 @@
       </ul>
     </li>
     <li>
-      <a href="#primeros-pasos">Primeros pasos</a>
+      <a href="#instalación-y-uso">Instalación y uso</a>
       <ul>
         <li><a href="#requerimientos-previos">Requerimientos previos</a></li>
-        <li><a href="#instalación">Instalación</a></li>
+        <li><a href="#pasos-a-seguir">Pasos a seguir</a></li>
       </ul>
     </li>
     <li>
@@ -94,57 +94,56 @@ El proyecto emplea una arquitectura multicapas que incluye las capas Controller,
 
 
 <!-- GETTING STARTED -->
-## Primeros pasos
+## Instalación y uso
 
-Para poder probar **Notes Manager** tenes que contar con lo siguiente
+Para poder probar **Notes Manager** tené en cuenta lo siguiente.
 
-### Requerimientos previos
+### Requerimientos Previos
 
-Antes que nada, asegurate de tener instalado lo siguiente en tu computadora!
-- **Java 17**: El proyecto utiliza Java 17. Podés descargarlo desde [OpenJDK](https://openjdk.java.net/projects/jdk/17/) u [Oracle](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html).
-- **Wampserver**: Para configurar un entorno de desarrollo local que incluya MySQL y un servidor Apache. Podés descargarlo desde [WAMPServer](https://wampserver.aviatechno.net).
+Primero que nada, asegurate de tener instalados los siguientes programas en tu máquina:
+
+- **Git**: Para clonar el repositorio.
+- **Docker**: Para construir y ejecutar los contenedores de la aplicación. Si no lo tenés instalado, podés descargarlo desde el siguiente enlace:
+  - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 
-### Instalación
+### Pasos a seguir
 
 1. **Clonar el repositorio**
    
-   Abrí tu línea de comandos y cloná el repositorio con el siguiente comando:
+   Abrí una terminal y cloná el repositorio con el siguiente comando:
    ```sh
    git clone https://github.com/Alvaro-Rubina/Notes-Manager.git
    ```
-   Después, abrí el proyecto con tu IDE de preferencia.
-2. **Configurar la base de datos**
+   Después, navegá al directorio del proyecto:
+   ```sh
+   cd Notes-Manager
+   ```
+
    
-   Ejecutá Wampserver, ingresá a [phpMyAdmin](http://localhost/phpmyadmin/) e iniciá sesion. Si es la primera vez que accedés, el valor por defecto para Usuario es **root** y para Contraseña nada, vacío. Si ya ocupaste phpMyAmin con anterioridad, podes iniciar sesión de esta forma u ocupar alguna cuenta de usuario que tengas.
-   Una vez dentro de phpMyAdmin, creá una base de datos con el nombre que quieras (para esta demostración, la base se llama **notes**), seleccioná *utf8mb4_spanish_ci* como Cotejamiento para que no tengás problemas con caráteres como acentos; y por último creá la base.
-   ![Demo del proyecto](images/db-creation.gif)
-3. **Configurar las variables de entorno**
+2. **Construir y levantar los contenedores**
+   
+   **A partir de acá es indispensable que Docker esté en ejecución, así que ejecutá Docker Desktop en tu PC.**
 
-   Para este paso vas a necesitar los datos que configuraste en el paso anterior: el usuario, contraseña y el nombre de la base de datos.
-   Dentro de tu IDE vas a navegar hasta el archivo *application.properties* (`src/main/resources/application.properties`) y vas a reemplazar:
-   - **${DB_URL}** por: `jdbc:mysql://localhost:3306/nombre_bd?useSSL=false&serverTimezone=UTC`
+   Una vez en el directorio raíz del proyecto, el siguiente paso es construir las imagenes y levantar los contenedores de la base de datos y de la aplicación en sí.
+   
+   Construí las imagenes:
+   ```sh
+   docker-compose build
+   ```
+   Y levantá los contenedores:
+   ```sh
+   docker-compose up
+   ```
+   (*A medida que sigas los pasos vas a poder ver el estado actual en la terminal, pero si querés, tambien podés comprobar que todo vaya bien desde las pestañas **Images** y **Containers** desde Docker Desktop.*)
 
-     Donde reemplazarás nombre_bd por el nombre de tu base de datos.
-   - **${DB_USER_NAME}** por tu usuario (si no lo cambiaste, sigue siendo `root`)
-   - **${DB_PASSWORD}** por tu contraseña (si no la cambiaste, deja el campo vacío)
-  
-     Alternativamente, podés optar por no reemplazar dichos campos y en su lugar configurar las variables de entorno del proyecto desde las configuraciones de tu IDE. Abajo hay una demostración de cómo hacerlo desde IntelliJ
-     ![Configuracion variables de entorno](images/env-variables.gif)
-  4. **Ejecutar el proyecto**
-
-     Si ya realizaste todos los pasos anteriores, ya estás en condiciones de comenzar. Dirigite a la clase NotesManaggerApplication (`src/main/java/org/alvarub/notesmanager/NotesManagerApplication.java`) ya que es la que contiene el método main y ejecutala. Se va a abrir una consola donde muestran logs indicando el estado actual de la ejecución, y si todo está en orden, al final vas a ver un log como el siguiente:
-
-```log
-2024-08-09T18:12:25.424-03:00  INFO 20580 --- [notes-manager] [  restartedMain] o.a.n.NotesManagerApplication            : Started NotesManagerApplication in XX.XXX seconds (process running for XX.XXX)
-```
-
-Arriba de ese log, vas a ver también otro log como este:
-```log
-2024-08-09T18:27:15.554-03:00  INFO 20580 --- [notes-manager] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
-```
-Este log también es importante, puesto que nos indica en que puerto se desplegó **Tomcat**, que es un servidor embebido que provee Spring Boot para desplegar la aplicación de forma local. El puerto por defecto que utiliza Tomcat es el 8080, que es donde se manejan las solicitudes HTTP que profundizaremos en la siguiente sección.
-Por último, si vas a phpMyAdmin y revisas la base de datos, vas a ver que se crearon de forma automáticamente las tablas **User** y **Note** junto con sus correspondientes columnas.
+   Si seguiste todos los pasos anteriores, al final vas a ver los siguiente logs en la terminal:
+   ```log
+   notes-manager-1  | 20XX-XX-XXT12:00:00.017Z  INFO 1 --- [notes-manager] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+   notes-manager-1  | 20XX-XX-XXT00:00:00.050Z  INFO 1 --- [notes-manager] [           main] o.a.n.NotesManagerApplication            : Started NotesManagerApplication in X.XXX seconds (process running 
+   for X.XXX)
+   ```
+   Donde, en resumen, señalan que la aplicación ya está funcionando en el puerto 8080; ya podés leer la siguiente sección y comenzar a probar los endpoints.
 
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
