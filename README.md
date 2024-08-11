@@ -83,6 +83,7 @@ El proyecto emplea una arquitectura multicapas que incluye las capas Controller,
 
 * [![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat&logo=spring&logoColor=white)](https://spring.io/projects/spring-boot)
 * [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)](https://www.mysql.com/)
+* [![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=flat&logo=hibernate&logoColor=white)](https://hibernate.org/)
 * [![MapStruct](https://img.shields.io/badge/MapStruct-6D7AA4?style=flat)](https://mapstruct.org/)
 * [![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=swagger&logoColor=white)](https://swagger.io/)
 * [![JUnit](https://img.shields.io/badge/JUnit-25A162?style=flat)](https://junit.org/)
@@ -115,7 +116,7 @@ Primero que nada, asegurate de tener instalados los siguientes programas en tu m
    ```sh
    git clone https://github.com/Alvaro-Rubina/Notes-Manager.git
    ```
-   Después, navegá al directorio del proyecto:
+   Después, navegá al directorio raíz del proyecto:
    ```sh
    cd Notes-Manager
    ```
@@ -125,13 +126,13 @@ Primero que nada, asegurate de tener instalados los siguientes programas en tu m
    
    **A partir de acá es indispensable que Docker esté en ejecución, así que ejecutá Docker Desktop en tu PC.**
 
-   Una vez en el directorio raíz del proyecto, el siguiente paso es construir las imagenes y levantar los contenedores de la base de datos y de la aplicación en sí.
+   Una vez en el directorio raíz del proyecto, el siguiente paso es construir la imagen Docker y levantar los contenedores de la base de datos y de la aplicación en sí.
    
-   Construí las imagenes:
+   Construí la imagen:
    ```sh
    docker-compose build
    ```
-   Y levantá los contenedores:
+   Levantá los contenedores:
    ```sh
    docker-compose up
    ```
@@ -143,7 +144,16 @@ Primero que nada, asegurate de tener instalados los siguientes programas en tu m
    notes-manager-1  | 20XX-XX-XXT00:00:00.050Z  INFO 1 --- [notes-manager] [           main] o.a.n.NotesManagerApplication            : Started NotesManagerApplication in X.XXX seconds (process running 
    for X.XXX)
    ```
-   Donde, en resumen, señalan que la aplicación ya está funcionando en el puerto 8080; ya podés leer la siguiente sección y comenzar a probar los endpoints.
+   Donde, en resumen, señalan que la aplicación ya está funcionando en el puerto 8080.
+
+
+3. **Detener la ejecución**
+
+   Para detener la ejecución y eliminar los contenedores, escribí el siguiente comando:
+   ```sh
+   docker-compose down
+   ```
+   *Es posible que luego de levantar los contenedores, la terminal no te permita seguir escribiendo, en cuyo caso simplemente abrís otra terminal en el directorio raíz del proyecto y escribís el comando anterior.*
 
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
