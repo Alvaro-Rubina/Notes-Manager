@@ -187,6 +187,7 @@ Para registrar un nuevo usuario: HTTP REQUEST **POST** en `/users/new`.
 
 - En el cuerpo de la request se envía un objeto `NewUserDTO` en formato JSON que luego es mapeado a un objeto `User` para ser agregado a la BBDD.
 - Todos los parámetros son obligatorios.
+- Cada username es único.
 
 <p align="center">Request</p>
 <p align="center">
