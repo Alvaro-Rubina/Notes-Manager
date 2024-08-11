@@ -23,13 +23,13 @@ public class UserService implements IUserService{
 
     @Override
     public void saveUser(NewUserDTO newUserDTO) {
-        if(newUserDTO.getUserName() == null || newUserDTO.getUserName().isEmpty()){
+        if(newUserDTO.userName() == null || newUserDTO.userName().isEmpty()){
             throw new IllegalArgumentException("El username es obligatorio");
 
-        } else if (newUserDTO.getName() == null || newUserDTO.getName().isEmpty()){
+        } else if (newUserDTO.name() == null || newUserDTO.name().isEmpty()){
             throw new IllegalArgumentException("El nombre es obligatorio");
 
-        } else if (newUserDTO.getLastName() == null || newUserDTO.getLastName().isEmpty()){
+        } else if (newUserDTO.lastName() == null || newUserDTO.lastName().isEmpty()){
             throw new IllegalArgumentException("El apellido es obligatorio");
 
         } else {
@@ -81,14 +81,14 @@ public class UserService implements IUserService{
             throw new UserNotFoundException("No existe el usuario con el id: " + id);
         }
 
-        if (newUserDTO.getUserName() != null){
-            user.setUserName(newUserDTO.getUserName());
+        if (newUserDTO.userName() != null){
+            user.setUserName(newUserDTO.userName());
         }
-        if (newUserDTO.getName() != null){
-            user.setName(newUserDTO.getName());
+        if (newUserDTO.name() != null){
+            user.setName(newUserDTO.name());
         }
-        if (newUserDTO.getLastName() != null){
-            user.setLastName(newUserDTO.getLastName());
+        if (newUserDTO.lastName() != null){
+            user.setLastName(newUserDTO.lastName());
         }
 
         userDAO.save(user);

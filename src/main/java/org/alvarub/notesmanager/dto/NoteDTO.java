@@ -4,15 +4,13 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter @Setter
-@AllArgsConstructor @NoArgsConstructor
 @Builder
-public class NoteDTO {
-
-    private Long noteID;
-    private String title;
-    private String content;
-    private int characterCount;
-    private LocalDate creationDate;
-    private String creatorUserName;
+public record NoteDTO (Long noteID,
+                       String title,
+                       String content,
+                       int characterCount,
+                       LocalDate creationDate,
+                       String creatorUserName) {
 }
+
+

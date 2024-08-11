@@ -27,21 +27,21 @@ public class NoteService implements INoteService {
 
     @Override
     public void saveNote(NewNoteDTO newNoteDTO) {
-        if (newNoteDTO.getTitle() == null || newNoteDTO.getTitle().isEmpty()){
+        if (newNoteDTO.title() == null || newNoteDTO.title().isEmpty()){
             throw new IllegalArgumentException("El título de la nota es obligatorio");
 
-        } else if (newNoteDTO.getContent() == null || newNoteDTO.getContent().isEmpty()){
+        } else if (newNoteDTO.content() == null || newNoteDTO.content().isEmpty()){
             throw new IllegalArgumentException("El contenido de la nota es obligatorio");
 
-        } else if (newNoteDTO.getCreatorID() == null){
+        } else if (newNoteDTO.creatorID() == null){
             throw new IllegalArgumentException("El usuario no puede ser nulo");
 
-        } else if (!userDAO.existsById(Math.toIntExact(newNoteDTO.getCreatorID()))){
-            throw new UserNotFoundException("No existe el usuario con el id: " + newNoteDTO.getCreatorID());
+        } else if (!userDAO.existsById(Math.toIntExact(newNoteDTO.creatorID()))){
+            throw new UserNotFoundException("No existe el usuario con el id: " + newNoteDTO.creatorID());
 
         } else {
             Note note = noteMapper.newNoteDTOToNote(newNoteDTO);
-            note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.getCreatorID())).get());
+            note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.creatorID())).get());
             noteDAO.save(note);
         }
     }
@@ -88,18 +88,18 @@ public class NoteService implements INoteService {
             throw new NoteNotFoundException("No existe la nota con el id: " + idNote);
         }
 
-        if (newNoteDTO.getCreatorID() != null && !userDAO.existsById(Math.toIntExact(newNoteDTO.getCreatorID()))){
-            throw new UserNotFoundException("No existe el usuario con el id: " + newNoteDTO.getCreatorID());
+        if (newNoteDTO.creatorID() != null && !userDAO.existsById(Math.toIntExact(newNoteDTO.creatorID()))){
+            throw new UserNotFoundException("No existe el usuario con el id: " + newNoteDTO.creatorID());
         }
 
-        if (newNoteDTO.getTitle() != null){
-            note.setTitle(newNoteDTO.getTitle());
+        if (newNoteDTO.title() != null){
+            note.setTitle(newNoteDTO.title());
         }
-        if (newNoteDTO.getContent() != null) {
-            note.setContent(newNoteDTO.getContent());
+        if (newNoteDTO.content() != null) {
+            note.setContent(newNoteDTO.content());
         }
-        if (newNoteDTO.getCreatorID() != null){
-            note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.getCreatorID())).get());
+        if (newNoteDTO.creatorID() != null){
+            note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.creatorID())).get());
         }
         noteDAO.save(note);
     }
