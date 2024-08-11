@@ -153,7 +153,7 @@ Primero que nada, asegurate de tener instalados los siguientes programas en tu m
    ```sh
    docker-compose down
    ```
-   *Es posible que luego de levantar los contenedores, la terminal no te permita seguir escribiendo, en cuyo caso simplemente abrís otra terminal en el directorio raíz del proyecto y escribís el comando anterior.*
+   *Es posible que luego de levantar los contenedores, la terminal no te permita seguir escribiendo, en tal caso simplemente abrís otra terminal en el directorio raíz del proyecto y escribís el comando anterior.*
 
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
