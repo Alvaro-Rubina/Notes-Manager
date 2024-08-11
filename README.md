@@ -120,8 +120,15 @@ Primero que nada, asegurate de tener instalados los siguientes programas en tu m
    ```sh
    cd Notes-Manager
    ```
-
    
+   
+  * Variables de entorno: Dentro del directorio del proyecto hay un archivo llamado ``.env.example`` que contiene valores de ejemplo para las variables que ocupará Docker Compose para funcionar.
+    Renombrá dicho archivo ``.env`` con el siguiente comando:
+       ```sh
+       mv .env.example .env
+       ```
+
+
 2. **Construir y levantar los contenedores**
    
    **A partir de acá es indispensable que Docker esté en ejecución, así que ejecutá Docker Desktop en tu PC.**
