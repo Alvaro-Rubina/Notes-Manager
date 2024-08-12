@@ -73,7 +73,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Usuario eliminado", content = @Content),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@Parameter(description = "ID del usuario", example = "1") @PathVariable int id) {
         try {
             userService.deleteUser(id);
