@@ -179,11 +179,11 @@ Mas adelante se muestran ejemplos realizados mediante la interfaz que brinda Swa
 ### User 
 ---
 
-Dentro de la sección de User se encuentran los endpoints para las distintas solicitudes y una pequeña descripción de lo que hacen.
+Dentro de la sección de User se encuentran los endpoints para las distintas solicitudes en `/users` y una pequeña descripción de lo que hacen.
 
 #### New User
 
-Para registrar un nuevo usuario: HTTP REQUEST **POST** en `/users/new`.
+Para registrar un nuevo usuario: HTTP REQUEST **POST** en `/users`.
 
 - En el cuerpo de la request se envía un objeto `NewUserDTO` en formato JSON que luego es mapeado a un objeto `User` para ser agregado a la BBDD.
 - Todos los parámetros son obligatorios.
@@ -192,13 +192,13 @@ Para registrar un nuevo usuario: HTTP REQUEST **POST** en `/users/new`.
 <p align="center">Request</p>
 <p align="center">
   
-  ![Ejemplo POST USER 1](images/post-user-1.png)
+  ![Ejemplo POST USER 1](images/users/post-user-1.png)
 </p>
 
 <p align="center">Response</p>
 <p align="center">
   
-  ![Ejemplo POST USER 2](images/post-user-2.png)
+  ![Ejemplo POST USER 2](images/users/post-user-2.png)
 </p>
 
 Responses:
@@ -211,7 +211,7 @@ Responses:
 
 #### Find User
 
-Para encontrar un usuario: HTTP REQUEST **GET** en `/users/find/{id}`.
+Para encontrar un usuario: HTTP REQUEST **GET** en `/users/{id}`.
 
 - En el URL se envía el ID del usuario como parámetro.
 - Devuelve un objeto `UserDTO`.
@@ -219,13 +219,13 @@ Para encontrar un usuario: HTTP REQUEST **GET** en `/users/find/{id}`.
 <p align="center">Request</p>
 <p align="center">
   
-  ![Ejemplo GET USER 1](images/get-user-1.png)
+  ![Ejemplo GET USER 1](images/users/get-user-1.png)
 </p>
 
 <p align="center">Response</p>
 <p align="center">
   
-  ![Ejemplo GET USER 2](images/get-user-2.png)
+  ![Ejemplo GET USER 2](images/users/get-user-2.png)
 </p>
 
 Responses:
@@ -238,7 +238,7 @@ Responses:
 
 #### Find all
 
-Para encontrar todos los usuarios registrados: HTTP REQUEST **GET** en `/users/find-all`.
+Para encontrar todos los usuarios registrados: HTTP REQUEST **GET** en `/users`.
 
 - Sin parámetros y sin cuerpo.
 - Devuelve una lista de objetos `UserDTO`. Si no hay usuarios, devuelve una lista vacía.
@@ -246,7 +246,7 @@ Para encontrar todos los usuarios registrados: HTTP REQUEST **GET** en `/users/f
 <p align="center">Response</p>
 <p align="center">
   
-  ![Ejemplo GET ALL USERS](images/get-all-users.png)
+  ![Ejemplo GET ALL USERS](images/users/get-all.png)
 </p>
 
 Responses:
@@ -258,7 +258,7 @@ Responses:
 
 #### Edit User
 
-Para editar un usuario: HTTP REQUEST **PUT** en `/users/edit/{id}`.
+Para editar un usuario: HTTP REQUEST **PUT** en `/users/{id}`.
 
 - En el URL se envía el ID del usuario a editar como parámetro.
 - En el cuerpo de la request se envía un objeto `NewUserDTO` en formato JSON con los datos del usuario que van a ser editados. No es obligatorio enviar todos los datos, solo los que van a ser editados.
@@ -267,13 +267,13 @@ Para editar un usuario: HTTP REQUEST **PUT** en `/users/edit/{id}`.
 <p align="center">Request</p>
 <p align="center">
   
-  ![Ejemplo EDIT USER 1](images/edit-user-1.png)
+  ![Ejemplo EDIT USER 1](images/users/edit-user-1.png)
 </p>
 
 <p align="center">Response</p>
 <p align="center">
   
-  ![Ejemplo EDIT USER 2](images/edit-user-2.png)
+  ![Ejemplo EDIT USER 2](images/users/edit-user-2.png)
 </p>
 
 Si buscamos al usuario con ID = 1 luego de editarlo:
@@ -281,7 +281,7 @@ Si buscamos al usuario con ID = 1 luego de editarlo:
 <p align="center">Response</p>
 <p align="center">
   
-  ![Ejemplo EDIT USER 3](images/edit-user-3.png)
+  ![Ejemplo EDIT USER 3](images/users/edit-user-3.png)
 </p>
 
 Responses:
@@ -302,7 +302,7 @@ Para eliminar un usuario: HTTP REQUEST **DELETE** en `/users/delete/{id}`.
 <p align="center">Request</p>
 <p align="center">
   
-  ![Ejemplo DELETE USER](images/delete-user.png)
+  ![Ejemplo DELETE USER](images/users/delete-user.png)
 </p>
 
 RESPONSES:
@@ -316,11 +316,11 @@ RESPONSES:
 ### Note
 ---
 
-Dentro de la sección de Note se encuentran los endpoints para las distintas solicitudes y una pequeña descripción de lo que hacen.
+Dentro de la sección de Note se encuentran los endpoints para las distintas solicitudes en `/notes` y una pequeña descripción de lo que hacen.
 
 #### New Note
 
-Para guardar una nueva nota: HTTP REQUEST **POST** en `/notes/new`.
+Para guardar una nueva nota: HTTP REQUEST **POST** en `/notes`.
 
 - En el cuerpo de la request se envía un objeto `NewNoteDTO` en formato JSON que luego es mapeado a un objeto `Note` para ser agregado a la BBDD.
 - Todos los parámetros son obligatorios.
@@ -329,13 +329,13 @@ Para guardar una nueva nota: HTTP REQUEST **POST** en `/notes/new`.
 <p align="center">Request</p>
 <p align="center">
   
-  ![Ejemplo POST NOTE 1](images/post-note-1.png)
+  ![Ejemplo POST NOTE 1](images/notes/post-note-1.png)
 </p>
 
 <p align="center">Response</p>
 <p align="center">
   
-  ![Ejemplo POST NOTE 2](images/post-note-2.png)
+  ![Ejemplo POST NOTE 2](images/notes/post-note-2.png)
 </p>
 
 Responses:
@@ -349,7 +349,7 @@ Responses:
 
 #### Find Note
 
-Para encontrar una nota: HTTP REQUEST **GET** en `/notes/find/{id}`.
+Para encontrar una nota: HTTP REQUEST **GET** en `/notes/{id}`.
 
 - En el URL se envía el ID de la nota como parámetro.
 - Devuelve un objeto `NoteDTO`.
@@ -357,13 +357,13 @@ Para encontrar una nota: HTTP REQUEST **GET** en `/notes/find/{id}`.
 <p align="center">Request</p>
 <p align="center">
   
-  ![Ejemplo GET NOTE 1](images/get-note-1.png)
+  ![Ejemplo GET NOTE 1](images/notes/get-note-1.png)
 </p>
 
 <p align="center">Response</p>
 <p align="center">
   
-  ![Ejemplo GET NOTE 2](images/get-note-2.png)
+  ![Ejemplo GET NOTE 2](images/notes/get-note-2.png)
 </p>
 
 Responses:
@@ -376,7 +376,7 @@ Responses:
 
 #### Find all
 
-Para encontrar todas las notas guardadas: HTTP REQUEST **GET** en `/notes/find-all`.
+Para encontrar todas las notas guardadas: HTTP REQUEST **GET** en `/notes`.
 
 - Sin parámetros y sin cuerpo.
 - Devuelve una lista de objetos `NoteDTO`. Si no hay notas, devuelve una lista vacía.
@@ -384,7 +384,7 @@ Para encontrar todas las notas guardadas: HTTP REQUEST **GET** en `/notes/find-a
 <p align="center">Response</p>
 <p align="center">
   
-  ![Ejemplo GET ALL NOTES](images/get-all-notes.png)
+  ![Ejemplo GET ALL NOTES](images/notes/get-all.png)
 </p>
 
 Responses:
@@ -396,7 +396,7 @@ Responses:
 
 #### Edit Note
 
-Para editar una nota: HTTP REQUEST **PUT** en `/notes/edit/{id}`.
+Para editar una nota: HTTP REQUEST **PUT** en `/notes/{id}`.
 
 - En el URL se envía el ID de la nota a editar como parámetro.
 - En el cuerpo de la request se envía un objeto `NewNoteDTO` en formato JSON con los datos de la nota que van a ser editados. No es obligatorio enviar todos los datos, solo los que van a ser editados.
@@ -405,13 +405,13 @@ Para editar una nota: HTTP REQUEST **PUT** en `/notes/edit/{id}`.
 <p align="center">Request</p>
 <p align="center">
   
-  ![Ejemplo EDIT NOTE 1](images/edit-note-1.png)
+  ![Ejemplo EDIT NOTE 1](images/notes/edit-note-1.png)
 </p>
 
 <p align="center">Response</p>
 <p align="center">
   
-  ![Ejemplo EDIT NOTE 2](images/edit-note-2.png)
+  ![Ejemplo EDIT NOTE 2](images/notes/edit-note-2.png)
 </p>
 
 Si buscamos a la nota con ID = 1 luego de editarla:
@@ -440,7 +440,7 @@ Para eliminar una nota: HTTP REQUEST **DELETE** en `/notes/delete/{id}`.
 <p align="center">Request</p>
 <p align="center">
   
-  ![Ejemplo DELETE NOTE](images/delete-note.png)
+  ![Ejemplo DELETE NOTE](images/notes/delete-note.png)
 </p>
 
 RESPONSES:
