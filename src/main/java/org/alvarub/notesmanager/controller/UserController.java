@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.alvarub.notesmanager.model.dto.NewUserDTO;
 import org.alvarub.notesmanager.model.dto.UserDTO;
-import org.alvarub.notesmanager.utils.exception.UserNotFoundException;
 import org.alvarub.notesmanager.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,13 +35,9 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<String> saveUser(@RequestBody NewUserDTO newUserDTO) {
-        try {
-            userService.saveUser(newUserDTO);
-            return new ResponseEntity<>("Usuario registrado", HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> saveUser(@Valid @RequestBody NewUserDTO newUserDTO) {
+        userService.saveUser(newUserDTO);
+        return new ResponseEntity<>("Usuario registrado", HttpStatus.CREATED);
     }
 
     @Operation(summary = "Buscar un usuario a través de su ID")
@@ -54,12 +50,7 @@ public class UserController {
     })
     @GetMapping("/{id}") @ResponseBody
     public ResponseEntity<?> findUser(@Parameter(description = "ID del usuario", example = "1") @PathVariable int id) {
-        try {
-            return new ResponseEntity<>(userService.findUser(id), HttpStatus.OK);
-
-        } catch (UserNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(userService.findUser(id), HttpStatus.OK);
     }
 
     @Operation(summary = "Obtener todos los usuarios")
@@ -75,12 +66,8 @@ public class UserController {
     })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@Parameter(description = "ID del usuario", example = "1") @PathVariable int id) {
-        try {
-            userService.deleteUser(id);
-            return new ResponseEntity<>("Usuario eliminado", HttpStatus.OK);
-        } catch (UserNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+        userService.deleteUser(id);
+        return new ResponseEntity<>("Usuario eliminado", HttpStatus.OK);
     }
 
     @Operation(summary = "Actualizar un usuario")
@@ -93,16 +80,8 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<String> editUser(@PathVariable int id ,@RequestBody NewUserDTO newUserDTO) {
-        try {
-            userService.editUser(id, newUserDTO);
-            return new ResponseEntity<>("Usuario actualizado", HttpStatus.OK);
-
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-
-        } catch (UserNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<String> editUser(@PathVariable int id ,@Valid @RequestBody NewUserDTO newUserDTO) {
+        userService.editUser(id, newUserDTO);
+        return new ResponseEntity<>("Usuario actualizado", HttpStatus.OK);
     }
 }
