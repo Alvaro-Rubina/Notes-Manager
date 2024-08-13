@@ -6,7 +6,6 @@ import org.alvarub.notesmanager.model.dto.NewNoteDTO;
 import org.alvarub.notesmanager.model.dto.NoteDTO;
 import org.alvarub.notesmanager.utils.mapper.NoteMapper;
 import org.alvarub.notesmanager.utils.exception.NoteNotFoundException;
-import org.alvarub.notesmanager.utils.exception.UserNotFoundException;
 import org.alvarub.notesmanager.model.entity.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,78 +26,40 @@ public class NoteService implements INoteService {
 
     @Override
     public void saveNote(NewNoteDTO newNoteDTO) {
-        if (newNoteDTO.title() == null || newNoteDTO.title().isEmpty()){
-            throw new IllegalArgumentException("El título de la nota es obligatorio");
-
-        } else if (newNoteDTO.content() == null || newNoteDTO.content().isEmpty()){
-            throw new IllegalArgumentException("El contenido de la nota es obligatorio");
-
-        } else if (newNoteDTO.creatorID() == null){
-            throw new IllegalArgumentException("El usuario no puede ser nulo");
-
-        } else if (!userDAO.existsById(Math.toIntExact(newNoteDTO.creatorID()))){
-            throw new UserNotFoundException("No existe el usuario con el id: " + newNoteDTO.creatorID());
-
-        } else {
-            Note note = noteMapper.newNoteDTOToNote(newNoteDTO);
-            note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.creatorID())).get());
-            noteDAO.save(note);
-        }
+        Note note = noteMapper.newNoteDTOToNote(newNoteDTO);
+        note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.creatorID())).orElseThrow(() -> new NoteNotFoundException("No existe el usuario con el id: " + newNoteDTO.creatorID())));
+        noteDAO.save(note);
     }
 
     @Override
     public NoteDTO findNote(int id) {
-
-        Note note;
-        if (noteDAO.findById(id).isPresent()){
-            note = noteDAO.findById(id).get();
-        } else {
-            throw new NoteNotFoundException("No existe la nota con el id: " + id);
-        }
-
-        NoteDTO noteDTO = noteMapper.noteToNoteDTO(note);
-        return noteDTO;
+        Note note = noteDAO.findById(id).orElseThrow(() -> new NoteNotFoundException("No existe la nota con el id: " + id));
+        return noteMapper.noteToNoteDTO(note);
     }
 
     @Override
     public List<NoteDTO> getNotes() {
-
         List<Note> notes = noteDAO.findAll();
-        List<NoteDTO> noteDTOs = noteMapper.noteListToNoteDTOList(notes);
-        return noteDTOs;
+        return noteMapper.noteListToNoteDTOList(notes);
     }
 
     @Override
     public void deleteNote(int id) {
-
-        if (noteDAO.findById(id).isPresent()) {
-            noteDAO.deleteById(id);
-        } else {
-            throw new NoteNotFoundException("No existe la nota con el id: " + id);
-        }
+        Note note = noteDAO.findById(id).orElseThrow(() -> new NoteNotFoundException("No existe la nota con el id: " + id));
+        noteDAO.delete(note);
     }
 
     @Override
     public void editNote(int idNote, NewNoteDTO newNoteDTO) {
+        Note note = noteDAO.findById(idNote).orElseThrow(() -> new NoteNotFoundException("No existe la nota con el id: " + idNote));
 
-        Note note;
-        if (noteDAO.findById(idNote).isPresent()){
-            note = noteDAO.findById(idNote).get();
-        } else {
-            throw new NoteNotFoundException("No existe la nota con el id: " + idNote);
-        }
-
-        if (newNoteDTO.creatorID() != null && !userDAO.existsById(Math.toIntExact(newNoteDTO.creatorID()))){
-            throw new UserNotFoundException("No existe el usuario con el id: " + newNoteDTO.creatorID());
-        }
-
-        if (newNoteDTO.title() != null){
+        if (newNoteDTO.title() != null) {
             note.setTitle(newNoteDTO.title());
         }
         if (newNoteDTO.content() != null) {
             note.setContent(newNoteDTO.content());
         }
-        if (newNoteDTO.creatorID() != null){
+        if (newNoteDTO.creatorID() != null) {
             note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.creatorID())).get());
         }
         noteDAO.save(note);
