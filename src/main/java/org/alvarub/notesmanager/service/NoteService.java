@@ -27,13 +27,13 @@ public class NoteService implements INoteService {
     @Override
     public void saveNote(NewNoteDTO newNoteDTO) {
         Note note = noteMapper.newNoteDTOToNote(newNoteDTO);
-        note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.creatorID())).orElseThrow(() -> new NoteNotFoundException("No existe el usuario con el id: " + newNoteDTO.creatorID())));
+        note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.creatorID())).orElseThrow(() -> new NoteNotFoundException("User with ID " + newNoteDTO.creatorID() + " does not exist"));
         noteDAO.save(note);
     }
 
     @Override
     public NoteDTO findNote(int id) {
-        Note note = noteDAO.findById(id).orElseThrow(() -> new NoteNotFoundException("No existe la nota con el id: " + id));
+        Note note = noteDAO.findById(id).orElseThrow(() -> new NoteNotFoundException("Note with ID " + id + " does not exist"));
         return noteMapper.noteToNoteDTO(note);
     }
 
@@ -45,13 +45,13 @@ public class NoteService implements INoteService {
 
     @Override
     public void deleteNote(int id) {
-        Note note = noteDAO.findById(id).orElseThrow(() -> new NoteNotFoundException("No existe la nota con el id: " + id));
+        Note note = noteDAO.findById(id).orElseThrow(() -> new NoteNotFoundException("Note with ID " + id + " does not exist"));
         noteDAO.delete(note);
     }
 
     @Override
     public void editNote(int idNote, NewNoteDTO newNoteDTO) {
-        Note note = noteDAO.findById(idNote).orElseThrow(() -> new NoteNotFoundException("No existe la nota con el id: " + idNote));
+        Note note = noteDAO.findById(idNote).orElseThrow(() -> new NoteNotFoundException("Note with ID " + idNote + " does not exist"));
 
         if (newNoteDTO.title() != null) {
             note.setTitle(newNoteDTO.title());

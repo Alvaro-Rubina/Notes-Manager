@@ -28,7 +28,7 @@ public class UserService implements IUserService{
 
     @Override
     public UserDTO findUser(int id) {
-        User user = userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("No existe el usuario con el id: " + id));
+        User user = userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("User with ID " + id + " does not exist"));
         return userMapper.userToUserDTO(user);
     }
 
@@ -40,13 +40,13 @@ public class UserService implements IUserService{
 
     @Override
     public void deleteUser(int id) {
-        User user = userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("No existe el usuario con el id: " + id));
+        User user = userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("User with ID " + id + " does not exist"));
         userDAO.delete(user);
     }
 
     @Override
     public void editUser(int id, NewUserDTO newUserDTO) {
-        User user = userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("No existe el usuario con el id: " + id));
+        User user = userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("User with ID " + id + " does not exist"));
 
         if (newUserDTO.userName() != null){
             user.setUserName(newUserDTO.userName());
