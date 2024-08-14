@@ -19,69 +19,69 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Tag(name = "Usuarios", description = "Controller | Consultas y operaciones con usuarios")
+@Tag(name = "Users", description = "Controller | User queries")
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private IUserService userService;
 
-    @Operation(summary = "Guardar un nuevo usuario")
+    @Operation(summary = "Save a user")
     @ApiResponses( value = {
-            @ApiResponse(responseCode = "201", description = "Usuario registrado", content = {
+            @ApiResponse(responseCode = "201", description = "User registered", content = {
                     @Content(mediaType = "application/json",
                             schema =  @Schema(implementation = NewUserDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Invalid parameters", content = @Content)
     })
     @PostMapping
     public ResponseEntity<String> saveUser(@Valid @RequestBody NewUserDTO newUserDTO) {
         userService.saveUser(newUserDTO);
-        return new ResponseEntity<>("Usuario registrado", HttpStatus.CREATED);
+        return new ResponseEntity<>("User registered", HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Buscar un usuario a través de su ID")
+    @Operation(summary = "Find a user by ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuario encontrado", content = {
+            @ApiResponse(responseCode = "200", description = "User found", content = {
                     @Content(mediaType = "application/json",
                         schema = @Schema(implementation = UserDTO.class))
             }),
-            @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
     @GetMapping("/{id}") @ResponseBody
-    public ResponseEntity<?> findUser(@Parameter(description = "ID del usuario", example = "1") @PathVariable int id) {
+    public ResponseEntity<?> findUser(@Parameter(description = "User ID", example = "1") @PathVariable int id) {
         return new ResponseEntity<>(userService.findUser(id), HttpStatus.OK);
     }
 
-    @Operation(summary = "Obtener todos los usuarios")
+    @Operation(summary = "Get all users")
     @GetMapping @ResponseBody
     public List<UserDTO> getAllUsers() {
         return userService.getUsers();
     }
 
-    @Operation(summary = "Eliminar un usuario")
+    @Operation(summary = "Delete a user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuario eliminado", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
+            @ApiResponse(responseCode = "200", description = "User deleted", content = @Content),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUser(@Parameter(description = "ID del usuario", example = "1") @PathVariable int id) {
+    public ResponseEntity<String> deleteUser(@Parameter(description = "User ID", example = "1") @PathVariable int id) {
         userService.deleteUser(id);
-        return new ResponseEntity<>("Usuario eliminado", HttpStatus.OK);
+        return new ResponseEntity<>("User deleted", HttpStatus.OK);
     }
 
-    @Operation(summary = "Actualizar un usuario")
+    @Operation(summary = "Update a user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuario actualizado", content = {
+            @ApiResponse(responseCode = "200", description = "User updated", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = NewUserDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Parámetros inválidos", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Usuario no encontrado", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Invalid parameters", content = @Content),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
     @PutMapping("/{id}")
     public ResponseEntity<String> editUser(@PathVariable int id ,@Valid @RequestBody NewUserDTO newUserDTO) {
         userService.editUser(id, newUserDTO);
-        return new ResponseEntity<>("Usuario actualizado", HttpStatus.OK);
+        return new ResponseEntity<>("User updated", HttpStatus.OK);
     }
 }
