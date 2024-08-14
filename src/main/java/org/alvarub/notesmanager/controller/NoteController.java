@@ -66,7 +66,7 @@ public class NoteController {
             @ApiResponse(responseCode = "200", description = "Note deleted", content = @Content),
             @ApiResponse(responseCode = "404", description = "Note not found", content = @Content)
     })
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteNote(@Parameter(description = "Note ID", example = "1") @PathVariable int id) {
         noteService.deleteNote(id);
         return new ResponseEntity<>("Note deleted", HttpStatus.OK);
