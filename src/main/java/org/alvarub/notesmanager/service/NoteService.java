@@ -27,7 +27,7 @@ public class NoteService implements INoteService {
     @Override
     public void saveNote(NewNoteDTO newNoteDTO) {
         Note note = noteMapper.newNoteDTOToNote(newNoteDTO);
-        note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.creatorID())).orElseThrow(() -> new NoteNotFoundException("User with ID " + newNoteDTO.creatorID() + " does not exist"));
+        note.setUser(userDAO.findById(Math.toIntExact(newNoteDTO.creatorID())).orElseThrow(() -> new NoteNotFoundException("User with ID " + newNoteDTO.creatorID() + " does not exist")));
         noteDAO.save(note);
     }
 
