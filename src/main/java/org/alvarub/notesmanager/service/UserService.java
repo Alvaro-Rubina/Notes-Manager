@@ -22,63 +22,31 @@ public class UserService implements IUserService{
 
     @Override
     public void saveUser(NewUserDTO newUserDTO) {
-        if(newUserDTO.userName() == null || newUserDTO.userName().isEmpty()){
-            throw new IllegalArgumentException("El username es obligatorio");
-
-        } else if (newUserDTO.name() == null || newUserDTO.name().isEmpty()){
-            throw new IllegalArgumentException("El nombre es obligatorio");
-
-        } else if (newUserDTO.lastName() == null || newUserDTO.lastName().isEmpty()){
-            throw new IllegalArgumentException("El apellido es obligatorio");
-
-        } else {
-            User user = userMapper.newUserDTOToUser(newUserDTO);
-            userDAO.save(user);
-        }
+        User user = userMapper.newUserDTOToUser(newUserDTO);
+        userDAO.save(user);
     }
 
     @Override
     public UserDTO findUser(int id) {
-
-        User user;
-        if (userDAO.findById(id).isPresent()){
-            user = userDAO.findById(id).get();
-        } else {
-            throw new UserNotFoundException("No existe el usuario con el id: " + id);
-        }
-
-        UserDTO userDTO = userMapper.userToUserDTO(user);
-        return userDTO;
+        User user = userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("User with ID " + id + " does not exist"));
+        return userMapper.userToUserDTO(user);
     }
 
     @Override
     public List<UserDTO> getUsers() {
-
         List<User> users = userDAO.findAll();
-        List<UserDTO> userDTOs= userMapper.userListToUserDTOList(users);
-        return userDTOs;
+        return userMapper.userListToUserDTOList(users);
     }
 
     @Override
     public void deleteUser(int id) {
-
-        if (userDAO.findById(id).isPresent()){
-            userDAO.deleteById(id);
-        } else {
-            throw new UserNotFoundException("No existe el usuario con el id: " + id);
-        }
+        User user = userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("User with ID " + id + " does not exist"));
+        userDAO.delete(user);
     }
 
     @Override
     public void editUser(int id, NewUserDTO newUserDTO) {
-
-        User user;
-        if (userDAO.findById(id).isPresent()){
-            user = userDAO.findById(id).get();
-
-        } else {
-            throw new UserNotFoundException("No existe el usuario con el id: " + id);
-        }
+        User user = userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("User with ID " + id + " does not exist"));
 
         if (newUserDTO.userName() != null){
             user.setUserName(newUserDTO.userName());

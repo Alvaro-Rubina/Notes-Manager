@@ -16,9 +16,8 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Notes Manger")
-                        .description("API desarrollada con Spring Boot que permite simular la parte Backend de un gestor de notas, " +
-                                "permitiendo llevar un control de los usuarios y sus respectivas notas" +
-                                " mediante consultas a una base de datos MySQL.")
+                        .description("API developed with Spring Boot that simulates the backend of a note manager, allowing for the " +
+                                "management of users and their notes through queries to a MySQL database")
                         .contact(new Contact()
                                 .name("Alvaro Rubina")
                                 .email("alvarorubina132@gmail.com")
