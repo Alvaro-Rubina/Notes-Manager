@@ -172,7 +172,7 @@ Primero que nada, asegurate de tener instalados los siguientes programas en tu m
 En esta sección se demuestra el funcionamiento de cada endpoint mediante ejemplos de solicitudes HTTP, de esta forma vas a comprender cómo realizar un CRUD tanto de Usuarios como Notas.  
 Antes de profundizar, dirigite a la siguiente dirección en tu navegador: http://localhost:8080/swagger-ui/index.html. Cuando hayas accedido, te vas a encontrar con una interfaz visual amigable que proporciona Swagger, donde se documentaron los endpoints.
 
-Mas adelante se muestran ejemplos realizados mediante la interfaz que brinda Swagger. Si deseas probar los endpoints mediante Postman, accede a colección con el siguiente botón:
+Más adelante se muestran ejemplos realizados mediante la interfaz que brinda Swagger. Si deseas probar los endpoints mediante Postman, accede a colección con el siguiente botón:
 
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/33441736-6b60df2c-fc2f-46c4-97d6-56dadc13a173?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D33441736-6b60df2c-fc2f-46c4-97d6-56dadc13a173%26entityType%3Dcollection%26workspaceId%3D86789605-6875-4391-8327-7c3a778f18dd)
 
@@ -295,7 +295,7 @@ Responses:
 
 #### Delete User
 
-Para eliminar un usuario: HTTP REQUEST **DELETE** en `/users/delete/{id}`.
+Para eliminar un usuario: HTTP REQUEST **DELETE** en `/users/{id}`.
 
 - En el URL se envía el ID del usuario a eliminar como parámetro.
 
@@ -433,7 +433,7 @@ Responses:
 
 #### Delete Note
 
-Para eliminar una nota: HTTP REQUEST **DELETE** en `/notes/delete/{id}`.
+Para eliminar una nota: HTTP REQUEST **DELETE** en `/notes/{id}`.
 
 - En el URL se envía el ID de la nota a eliminar como parámetro.
 
