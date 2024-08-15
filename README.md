@@ -73,7 +73,7 @@ El proyecto emplea una arquitectura multicapas que incluye las capas Controller,
 - **Lombok**: Para reducir el código boilerplate.
 
 
-*Proximamente se agregará autenticación*
+✅ Estado actual: Implementando autenticación
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
 
