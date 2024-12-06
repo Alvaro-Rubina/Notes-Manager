@@ -7,7 +7,6 @@ mvnw
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-src/main/resources/application-secrets.yml
 
 ### STS ###
 .apt_generated
