@@ -3,6 +3,7 @@ package org.alvarub.notesmanager.service;
 import org.alvarub.notesmanager.dao.UserDAO;
 import org.alvarub.notesmanager.model.dto.NewUserDTO;
 import org.alvarub.notesmanager.model.dto.UserDTO;
+import org.alvarub.notesmanager.utils.exception.ExistingUserException;
 import org.alvarub.notesmanager.utils.exception.UserNotFoundException;
 import org.alvarub.notesmanager.utils.mapper.UserMapper;
 import org.alvarub.notesmanager.model.entity.User;
@@ -22,6 +23,9 @@ public class UserService implements IUserService{
 
     @Override
     public void saveUser(NewUserDTO newUserDTO) {
+        if (userDAO.existsByUserName(newUserDTO.userName())){
+            throw new ExistingUserException("Username " + newUserDTO.userName() + " already exists");
+        }
         User user = userMapper.newUserDTOToUser(newUserDTO);
         userDAO.save(user);
     }

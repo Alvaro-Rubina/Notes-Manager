@@ -34,4 +34,9 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.joining(". ")) + ".";
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ExistingUserException.class)
+    public ResponseEntity<String> handleExistingUserException(ExistingUserException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
